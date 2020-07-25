@@ -9,10 +9,63 @@
 1. 列表过滤
 2. 列表排序
 -->
+<div id="app">
+  <input type="text" v-model="searchName">
+  <ul>
+
+    <li v-for="(p, index) in filterPersons" :key="p.id">
+      {{p.id}}--{{p.name}}--{{p.age}}
+    </li>
+  </ul>
+  <!-- 点击按钮得做什么? -->
+  <button @click="orderType=2">年龄升序</button>
+  <button @click="orderType=1">年龄降序</button>
+  <button @click="orderType=0">原本顺序</button>
+</div>
 
 <script type="text/javascript" src="../js/vue.js"></script>
 <script type="text/javascript">
+  new Vue({
+    data() {
+      return {
+        searchName: '', // 搜索的关键字
+        orderType: 0, // 顺序的类型, 0: 不排序/ 1: 年龄降序/ 2: 年龄升序
+        persons: [ // 所有人的数组  ==> 这个数组不能变
+          {id: 1, name: 'tom', age: 15},
+          {id: 3, name: 'bob', age: 14},
+          {id: 5, name: 'jerry', age: 13},
+          {id: 7, name: 'cat', age: 6},
+        ]
+      }
+    },
 
+    computed: {
+      /* 
+      过滤后用于显示的数组
+      计算属性都难不是计算, 是你想不到要用计算属性
+      */
+      filterPersons () {
+        // 取出依赖数据
+        let {searchName, persons, orderType} = this
+        // 计算产生一个新数据
+        // 对persons进行过滤
+        persons.filter(p => p.name.indexOf(searchName)!==-1)
+
+        // 有可能还需要排序
+        if (orderType!==0) { // array.sort()
+          if (orderType===2) { // 升序  
+            // 比较函数如果返回>0, 将p2放到左边, 如果<0, 将p2放在右边
+            persons.sort((p1, p2) => p1.age - p2.age)
+          } else { // 降序
+            persons.sort((p1, p2) => p2.age - p1.age)
+          }
+        }
+
+        // 返回新数据
+        return persons
+      }
+    },
+  }).$mount('#app')
 </script>
 </body>
 </html>

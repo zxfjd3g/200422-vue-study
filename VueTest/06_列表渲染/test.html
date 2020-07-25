@@ -24,6 +24,8 @@
     -->
     <li v-for="(p, index) in persons" :key="p.id">
       {{p.id}}--{{p.name}}--{{p.age}}
+      --<button @click="deleteP(index)">删除</button>
+      --<button @click="updateP(index, {id: Date.now(), name:'atguigu', age: 8})">更新</button>
     </li>
   </ul>
 
@@ -49,7 +51,34 @@
         ]
       }
     },
+
+    methods: {
+      deleteP (index) {
+        this.persons.splice(index, 1)
+      },
+
+      // 替换指定下标的人
+      updateP (index, newP) {
+        // 方式一: 直接根据下标替换数组元素 ==> 数据变化了, 但界面没有变化
+        // this.persons[index] = newP
+        // 方法二: 调用数组更新元素的方法 ==> 界面会自动更新
+        // this.persons.splice(index, 1, newP)
+
+        // 方式三: 更新数组元素对象内部的属性 ==> 界面会自动更新
+        this.persons[index].id = newP.id
+        this.persons[index].name = newP.name
+        this.persons[index].age = newP.age
+      }
+    },
   }).$mount('#demo')
+
+
+  /* 
+  数据绑定: 更新数据, vue内部就会自动更新对应的界面
+  疑问: vue内部如何知道数据发生了变化?
+        为什么直接替换数组指定下标元素, 界面不会自动更新?
+        为什么直接更新对象的属性值, 界面会自动更新?
+  */
 </script>
 </body>
 </html>

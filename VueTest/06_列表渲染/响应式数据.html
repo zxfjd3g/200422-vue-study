@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <div id="test">
+    <p>{{user.username}}</p>
+
+    <ul>
+      <li v-for="(p, index) in persons" :key="p.id">
+        {{p.id}}--{{p.name}}--{{p.age}}
+      </li>
+    </ul>
+  </div>
+  <script type="text/javascript" src="../js/vue.js"></script>
+  <script>
+    const vm = new Vue({
+      el: '#test',
+      data () {
+        return {
+          user: {username: 'tom', pwd: 'abc'},
+          persons: [
+            {id: 1, name: 'tom', age: 15},
+            {id: 2, name: 'jack', age: 12},
+            {id: 3, name: 'bob', age: 14},
+            {id: 5, name: 'jerry', age: 13},
+            {id: 7, name: 'cat', age: 6},
+          ]
+        }
+      }
+    })
+   
+    setTimeout(() => {
+      vm.user = {username: 'bob'}
+      vm.user.username = 'jack'
+
+      // 此处调用的是vue重新实现的splice方法
+      vm.persons.splice(1, 1, {id: Date.now(), name:'atguigu', age: 8})
+      // vm.persons[1] = {id: Date.now(), name:'atguigu', age: 8}
+      vm.persons[2].name = 'xxx'
+    }, 1000);
+
+    console.log(vm)
+
+    /* 
+    ~~~非常重要~~
+    响应式对象(数组): 修改了对象里面的数据, 界面就会自动更新, 比如user和persons
+    vue内部会监视data中所有层次的属性数据
+    1. 对象内部属性数据响应式(一旦修改了对象中的属性, 就会自动去更新界面)
+      通过Object.defineProperty()给对象中的所有属性都添加setter方法
+    2. 数组中元素数据的响应式  ---数组更新检测
+        不是通过Object.defineProperty()来实现
+        vue内部重写了数组的改变元素的一系列方法
+            1) 调用数组原始方法去更新数组元素
+            2) 更新界面去
+        vue内部重写了哪些数组的方法来实现数组内部元素的响应式
+          push()
+          pop()
+          shift()
+          unshift()
+          splice()
+          sort()
+          reverse()
+        如果数组中有一万个元素?  ===> 重写方法的效率高
+    */
+
+    const p = {firstName: 'A', lastName: 'B'}
+    Object.defineProperty(p, 'fullName', {
+      get () { // 计算产生属性值的
+        return this.firstName + '-' + this.lastName
+      },
+      set (value) { // 监视属性值变化
+        console.log('set()', value)
+        const names = value.split('-')
+        this.firstName = names[0]
+        this.lastName = names[1]
+      }
+    })
+    console.log(p.fullName)  // 自动调用get得到值
+    p.fullName = 'C-D'
+
+  </script>
+</body>
+</html>
