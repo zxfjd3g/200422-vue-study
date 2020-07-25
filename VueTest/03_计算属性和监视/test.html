@@ -36,6 +36,8 @@
 
   <p>人员信息详情(异步获取): {{personInfo}}</p>
 
+  姓名: <input type="text" placeholder="Last Name" v-model="fullName3"><br>
+
 </div>
 
 <script type="text/javascript" src="../js/vue.js"></script>
@@ -68,6 +70,28 @@
         return this.firstName + '-' + this.lastName
       },
 
+      fullName3: {
+        // 与上面是一样的
+        get () {
+          console.log('computed fullName3 getter')
+          return this.firstName + '-' + this.lastName
+        },
+
+        /* 
+        1. 什么时候执行?  当fullName3设置了新的值时自动调用
+        2. 用来做什么的? 监视当前值的变化  ===> 不是用来设置当前属性值的
+        3. this是谁? this是vm对象   ===> 只要是vue控制的回调函数都是vm对象
+        */
+        set (value) { // value是fullName3最新的值  // A4-B3
+          console.log('computed fullName3 setter', value)
+
+          const names = value.split('-')  // [A4, B3]
+          // 更新firstName和lastName
+          this.firstName = names[0]
+          this.lastName = names[1]
+        }
+      }
+
       /* 
       // 不能异步确定返回一个数据, 只能同步返回要显示的数据
       personInfo () {
@@ -77,6 +101,7 @@
         }, 1000);
         // return undefined
       } */
+
     },
 
     methods: { // methods中所有的方法都会成为vm的方法
