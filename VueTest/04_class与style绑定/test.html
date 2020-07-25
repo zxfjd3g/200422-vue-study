@@ -48,8 +48,8 @@
 
 <script type="text/javascript" src="../js/vue.js"></script>
 <script type="text/javascript">
-  new Vue({
-    // el: '#demo'
+  const vm = new Vue({
+    // el: '#demo',
     data() {
       return {
         myClass: 'classA',
@@ -69,7 +69,10 @@
         this.fontSize = 30
       }
     },
-  }).$mount('#demo')
+  })
+  
+  // 创建好vm后, 再去指定模板的根元素
+  vm.$mount('#demo')
 </script>
 </body>
 </html>

@@ -17,14 +17,39 @@
 
 <div id="demo">
   <h2>测试: v-for 遍历数组</h2>
+  <ul>
+    <!-- 
+      v-for遍历产生列表时, 每个项标签都需要有一个唯一的key值 
+      如果数组元素有自己的标识数据, 用它作为key值, 否则才选择下标作为key
+    -->
+    <li v-for="(p, index) in persons" :key="p.id">
+      {{p.id}}--{{p.name}}--{{p.age}}
+    </li>
+  </ul>
 
   <h2>测试: v-for 遍历对象</h2>
-
+  <ul>
+    <li v-for="(value, key) in persons[1]" :key="key">
+      {{key}}---{{value}}
+    </li>
+  </ul>
 </div>
 
 <script type="text/javascript" src="../js/vue.js"></script>
 <script type="text/javascript">
-
+  new Vue({
+    data() {
+      return {
+        persons: [
+          {id: 1, name: 'tom', age: 15},
+          {id: 2, name: 'jack', age: 12},
+          {id: 3, name: 'bob', age: 14},
+          {id: 5, name: 'jerry', age: 13},
+          {id: 7, name: 'cat', age: 6},
+        ]
+      }
+    },
+  }).$mount('#demo')
 </script>
 </body>
 </html>
