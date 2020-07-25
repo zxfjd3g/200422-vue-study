@@ -48,7 +48,7 @@
 
   const vm = new Vue({
     el: '#demo',
-    data () {
+    data () { // data也可以是返回对象的函数
       return {
         firstName: 'A',
         lastName: 'B',
@@ -148,6 +148,9 @@
     // 更新fullName2
     this.fullName2 = this.firstName + '-' + value
   })
+
+  vm.fullName3 = 'xxx-yyy'  // 触发计算属性的set方法调用
+  console.log(vm.fullName3) // 触发计算属性的get方法调用
 
   /* 
   确定回调函数的3个问题
