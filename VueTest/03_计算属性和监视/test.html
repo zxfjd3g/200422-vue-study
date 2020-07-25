@@ -32,17 +32,26 @@
   <p>姓名(方法): {{getFullName()}}</p>
   <p>姓名(计算属性): {{fullName1}}</p>
   <p>姓名(计算属性): {{fullName1}}</p>
+  <p>姓名(监视): {{fullName2}}</p>
+
+  <p>人员信息详情(异步获取): {{personInfo}}</p>
+
 </div>
 
 <script type="text/javascript" src="../js/vue.js"></script>
 <script type="text/javascript">
-  new Vue({
+
+  // 全局配置不要显示不是vue生产环境包的提示
+  Vue.config.productionTip = false
+
+  const vm = new Vue({
     el: '#demo',
     data () {
       return {
         firstName: 'A',
         lastName: 'B',
-        // fullName1: 'A-B'
+        fullName2: 'A-B',
+        personInfo: '', // 开始没有, 需要根据fullName2去异步请求获取
       }
     },
 
@@ -54,10 +63,20 @@
       2. 用来做什么的? 将执行返回的结果作为计算属性值
       3. this是谁? this是vm对象   ===> 只要是vue控制的回调函数都是vm对象
       */
-      fullName1 () {
+      fullName1 () {  // 相当于监视了firstName和lastName
         console.log('computed fullName1')
         return this.firstName + '-' + this.lastName
-      }
+      },
+
+      /* 
+      // 不能异步确定返回一个数据, 只能同步返回要显示的数据
+      personInfo () {
+        setTimeout(() => {
+          const personInfo = this.fullName2 + '信息详情数据...'
+          return personInfo
+        }, 1000);
+        // return undefined
+      } */
     },
 
     methods: { // methods中所有的方法都会成为vm的方法
@@ -66,6 +85,43 @@
         return this.firstName + '-' + this.lastName
       }
     },
+
+    watch: {
+      // 监视firstName, 一旦firstName发生变化, 自动调用
+      firstName (value) {
+        console.log('watch firstName', value)
+        // 更新fullName2
+        this.fullName2 = value + '-' + this.lastName
+      },
+
+      // lastName (value) {
+      //   console.log('watch lastName', value)
+      //   // 更新fullName2
+      //   this.fullName2 = this.firstName + '-' + value
+      // }
+
+      fullName2: {
+        handler (value) {
+          console.log('handler fullName2 ()')
+          // 一旦它发生变化, 就去发请求获取人员详情
+          // 模拟发请求
+          setTimeout(() => {
+            // 得到数据
+            const personInfo = this.fullName2 + '信息详情数据...'
+            // 更新
+            this.personInfo = personInfo
+          }, 1000);
+        },
+        immediate: true, // 一上来就会执行一次监视的回调 ==> 默认是只有发生改变时才调用
+      }
+    },
+  })
+
+  // 监视lastName
+  vm.$watch('lastName', function (value) {
+    console.log('$watch lastName', value)
+    // 更新fullName2
+    this.fullName2 = this.firstName + '-' + value
   })
 
   /* 
