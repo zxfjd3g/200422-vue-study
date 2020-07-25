@@ -30,13 +30,42 @@
 -->
 
 <div id="app">
-  <h2>1. 双大括号表达式</h2>
+  <h2>1. 双大括号表达式/插值</h2>
+  <p>正序: {{content}}</p>
+  <p>倒序: {{content.split('').reverse().join('')}}</p>
 
   <h2>2. 指令一: 强制数据绑定</h2>
+  <!-- 让标签属性值是动态的 -->
+  <a href="url">去学习</a> <br>
+  <a v-bind:href="url">去学习</a> <br>
+  <a :href="url">去学习</a> <br>
 
   <h2>3. 指令二: 绑定事件监听</h2>
+  <button v-on:click="test1">test1---</button>
+  <button @click="test1">test2222---</button>
 
 </div>
 
+<script src="../js/vue.js"></script>
+<script>
+  new Vue({
+    el: '#app',
+    data: {
+      content: 'CBA I Love Game',
+      url: 'http://atguigu.com'
+    },
+    methods: { // 包含一些事件监听回调函数方法
+      test1 (event) {
+        alert(event.target.innerHTML)
+      }
+    },
+  })
+
+  // function () {}  当前是一个表达式函数, 不能单独存在
+  // function fn () {}  // 当前是一条语句  函数声明
+  // const fn = function () {} // 赋值语句
+  // (function () {}) () // 语句
+
+</script>
 </body>
 </html>

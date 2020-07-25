@@ -26,7 +26,7 @@
 -->
 <div id="test">
   <input type="text" v-model="msg">
-  <p>Hello {{msg.toUpperCase()}}</p>
+  <p>Hello {{msg}}</p> <!-- 声明显示要显示msg -->
 </div>
 
 <p>Hello {{msg}}</p>
@@ -40,11 +40,14 @@
     data: { // data对象为模板显示提供数据
       msg: 'atguigu'
     }
-  })
+  });
 
-  setInterval(() => {
-    vm.msg = vm.msg + '----'
-  }, 1000);
+  console.log(vm)
+
+  setTimeout(() => {
+    // vm._data.msg = vm._data.msg + '---'
+    vm.msg = vm.msg + '----'  // 内部更新的是data中的msg  ===> 界面就会自动更新
+  }, 2000)
 
 
 </script>
