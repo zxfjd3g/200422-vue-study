@@ -21,14 +21,59 @@
     watch还有一个很大特点可以对数组或对象数据进行深度(deep)监视  ===> 后面练习用
 -->
 <div id="demo">
-  姓: <input type="text" placeholder="First Name"><br>
-  名: <input type="text" placeholder="Last Name"><br>
-
+  <!-- 
+    模板中读取属性数据和执行函数都是找的vm对象
+    模板中从来不用写this或vm
+   -->
+  姓: <input type="text" placeholder="First Name" v-model="firstName"><br>
+  名: <input type="text" placeholder="Last Name" v-model="lastName"><br>
+  <p>姓名(复杂的插值表达式): {{firstName + '-' + lastName}}</p>
+  <p>姓名(方法): {{getFullName()}}</p>
+  <p>姓名(方法): {{getFullName()}}</p>
+  <p>姓名(计算属性): {{fullName1}}</p>
+  <p>姓名(计算属性): {{fullName1}}</p>
 </div>
 
 <script type="text/javascript" src="../js/vue.js"></script>
 <script type="text/javascript">
+  new Vue({
+    el: '#demo',
+    data () {
+      return {
+        firstName: 'A',
+        lastName: 'B',
+        // fullName1: 'A-B'
+      }
+    },
 
+    // 定义计算属性
+    computed: {
+
+      /* 
+      1. 什么时候执行?   初始显示执行第一次 / 一旦依赖数据发生改变就会再次执行
+      2. 用来做什么的? 将执行返回的结果作为计算属性值
+      3. this是谁? this是vm对象   ===> 只要是vue控制的回调函数都是vm对象
+      */
+      fullName1 () {
+        console.log('computed fullName1')
+        return this.firstName + '-' + this.lastName
+      }
+    },
+
+    methods: { // methods中所有的方法都会成为vm的方法
+      getFullName () {
+        console.log('getFullName()', this)  // this就是vm
+        return this.firstName + '-' + this.lastName
+      }
+    },
+  })
+
+  /* 
+  确定回调函数的3个问题
+  1. 什么时候执行?
+  2. 用来做什么的?
+  3. this是谁?
+  */
 </script>
 </body>
 </html>
