@@ -175,26 +175,54 @@
 	    <div>{{myData | filterName}}</div>
 	    <div>{{myData | filterName(arg)}}</div>
 
+## 内置指令与自定义指令
+	理解: 所有的指令都是用来操作所在的标签的
+	内置指令: 
+		v:text : 更新元素的 textContent/innerText
+		v-html : 更新元素的 innerHTML
+		v-if : 如果为true, 当前标签才会输出到页面
+		v-else: 如果为false, 当前标签才会输出到页面
+		v-show : 通过控制display样式来控制显示/隐藏
+		v-for : 遍历数组/对象
+		v-on : 绑定事件监听, 一般简写为@
+		v-bind : 强制绑定解析表达式, 可以省略v-bind
+		v-model : 双向数据绑定
+		特殊属性-- ref : 为某个元素注册一个唯一标识, vue对象通过$refs属性访问这个元素对象
+	自定义指令:
+		1). 注册全局指令  ==> 所有vm都可以使用
+		  Vue.directive('my-directive', function(el, binding){
+		    el.innerHTML = binding.value.toupperCase()
+		  })
+		2). 注册局部指令 ==> 只有当前vm可以使用
+		  directives : {
+		    'my-directive' (el, binding) {
+		      el.innerHTML = binding.value.toupperCase()
+		    }
+		  }
+		3). 使用指令
+		  v-my-directive='xxx'
 
-
+## 自定义vue插件
+	1) 所有vue插件必须都要有一个install方法, 在此方法中扩展vue的功能
+	2) 引入vue的插件后, 必须通过Vue.use()来声明使用(安装)插件
 
 ## 编码任务列表
-1-- vue helloworld
-2-- 理解MVVM, 数据绑定, 双向数据绑定
-3-- 模板语法
-4-- 计算属性VS方法
-5-- 监视VS计算属性
-6-- 计算属性的setter
-7-- 动态绑定class与style
-8-- 条件渲染
-9-- v-for显示列表
-10-- 理解vue响应式处理
-11-- 列表的搜索与排序
-12-- 绑定事件监听
-13-- 表单数据收集
-14-- 利用生命周期实现功能
-15-- 测试生命周期勾子
-16-- 过渡与动画
-17-- 自定义过滤器
-18-- 内置指令与自定义指令
-19-- 自定义vue插件
+- 1. vue helloworld
+- 2. 理解MVVM, 数据绑定, 双向数据绑定
+- 3. 模板语法
+- 4. 计算属性VS方法
+- 5. 监视VS计算属性
+- 6. 计算属性的setter
+- 7. 动态绑定class与style
+- 8. 条件渲染
+- 9. v-for显示列表
+- 10. 理解vue响应式处理
+- 11. 列表的搜索与排序
+- 12. 绑定事件监听
+- 13. 表单数据收集
+- 14. 利用生命周期实现功能
+- 15. 测试生命周期勾子
+- 16. 过渡与动画
+- 17. 自定义过滤器
+- 18. 内置指令与自定义指令
+- 19. 自定义vue插件

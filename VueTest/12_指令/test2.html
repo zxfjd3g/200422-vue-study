@@ -13,7 +13,7 @@
   })
 2. 注册局部指令
   directives : {
-    'my-directive' :function (el, binding) {
+    'my-directive' (el, binding) {
       el.innerHTML = binding.value.toupperCase()
     }
   }
