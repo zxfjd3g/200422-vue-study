@@ -23,16 +23,89 @@
 <div id="example">
 
   <h2>1. 绑定监听</h2>
+  <button @click="test1">test111</button>
+  <button @click="test2('atguigu')">test222</button>
+  <button @click="test3('atguigu', $event)">test333</button>   
+  <!-- 
+    在绑定事件监听时, 可以直接使用的一个变量$event, 就是事件对象
+    在外层自动包了一层函数定义, 作为点击监听的回调函数, $event就是接收事件对象的形参数变量
+    <button @click="($event) => test3('atguigu', $event)">test333</button>
+   -->
 
   <h2>2. 事件修饰符</h2>
+  <!-- 
+    停止事件冒泡
+    阻止事件的默认行为
+    事件监听只响应一次
+  -->
+  <div style="width: 200px; height: 200px; background: red;" @click="test4">
+    <div style="width: 100px; height: 100px; background: green;" @click.stop="test5"></div>
+  </div>
+
+  <a href="http://www.baidu.com" @click.prevent="test6">百度一下</a>
+  <button @click.once="test7">只响应一次点击</button>
+
 
   <h2>3. 按键修饰符</h2>
+  <input type="text" v-model="msg" @keyup.13="test8"> <br>
+  <input type="text" v-model="msg2" @keyup.enter="test9"> 点击enter才提示内容
 
 </div>
 
 <script type="text/javascript" src="../js/vue.js"></script>
 <script type="text/javascript">
+  new Vue({
+    el: '#example',
+    data() {
+      return {
+        msg: 'I will back',
+        msg2: 'xxxx',
+      }
+    },
+    methods: {
+      test9 (event) {
+        alert(this.msg2)
+      },
 
+      test8 (event) {
+        // if (event.keyCode===13) {
+        //   alert(this.msg)
+        // }
+        alert(this.msg)
+      },
+
+      test1 (event) {
+        alert(event.target.innerHTML)
+      },
+
+      test2 (content) {
+        alert(content)
+      },
+
+      test3 (content, e) {
+        alert(content + '---' + e.target.innerHTML)
+      },
+
+      test4 () {
+        alert('outer')
+      },
+
+      test5 (event) {
+        // event.stopPropagation();
+
+        alert('inner')
+      },
+
+      test6 (event) {
+        // event.preventDefault();
+        alert('响应点击链接, 不跳转')
+      },
+
+      test7 (event) {
+        alert('-----')
+      },
+    },
+  })
 </script>
 </body>
 </html>
