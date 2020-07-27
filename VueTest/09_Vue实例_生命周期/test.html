@@ -26,6 +26,13 @@
 <div id="test">
   <button @click="destroyVM">destroy vue</button>
   <p v-show="isShow">atguigu.com</p>
+  <!-- ref相当于id, 用来标识这个标签的 -->
+  <p ref="text">{{isShow ? '真' : '假'}}</p>
+  <p ref="text2">{{'abc'}}</p>
+  <p>{{'abc'}}</p>
+  <p>{{'abc'}}</p>
+  <p>{{'abc'}}</p>
+  <p>{{'abc'}}</p>
 </div>
 
 <script type="text/javascript" src="../js/vue.js"></script>
@@ -33,21 +40,72 @@
   new Vue({
     el: '#test',
 
+    data() {
+      return {
+        isShow: true
+      }
+    },
+
     /* 
+    beforeCreate(): vm对象一旦创建就立即调用, 此时通过vm得不到data中的数据
+    */
+    beforeCreate() {
+      console.log('beforeCreate()', this.isShow) // isShow能不能得到?
+    },
+
+    /* 实现数据代理/数据绑定/事件初始值 */
+
+    /* 
+    created(): 实现数据代理/数据绑定都已经准备好了, 此时通过vm得到data中的数据
+    */
+    created() {
+      console.log('created()', this.isShow) // isShow能不能得到?
+      // this.isShow = false
+    },
+
+    /* 解析模板: 在内存中生成DOM结构(已经解析好的)  */
+
+    /* 
+    beforeMount(): 在界面初始显示前调用, 此时还不能通过ref得到页面的标签对象
+    */
+    beforeMount() {
+      // this.$refs: 得到的是所有有ref属性的标签的对象
+      console.log('beforeMount()', this.isShow, this.$refs.text) // 不能得到标签对象
+    },
+
+    /* 挂载到页面el中: 初始初始显示 */
+
+    /* 
+    mounted(): 在界面初始显示后调用, 此时能通过ref得到页面的标签对象
     在初始化显示后立即执行
     一般在此做一些一次性异步操作 ==> 比如: 启动定时器/发ajax请求/...
     */
     mounted() {
-      console.log('mounted()')
+      console.log('mounted()', this.isShow, this.$refs.text)  // 能得到标签对象
       // 一般不会在vm的外面更新vm的data数据
       this.intervalId = setInterval(() => { // 只需要启动一次, 必须要用箭头函数
       console.log('-----')
         this.isShow = !this.isShow
-      }, 1000);
+      }, 2000);
     },
 
     /* 
-    在vm将要死亡之前自动调用
+    beforeUpdate(): 在数据更新后, 界面更新前调用 ==> 取到的是老界面内容
+     */
+    beforeUpdate() {
+      console.log('beforeUpdate', this.isShow, this.$refs.text.innerHTML)
+    },
+
+    /* 
+    updated(): 在数据更新且界面更新后调用 ==> 取到的是新界面内容 
+    */
+    updated() {
+      console.log('updated', this.isShow, this.$refs.text.innerHTML) 
+    },
+
+
+     /* 
+    beforeDestroy(): 在vm将要死亡之前自动调用
     一般在此执行一些收尾工作: 清除定时器/...
     */
     beforeDestroy() {
@@ -56,11 +114,15 @@
       clearInterval(this.intervalId)
     },
 
-    data() {
-      return {
-        isShow: true
-      }
+    /* 移除vm响应式功能 ==> 界面不会再有变化了 */
+
+    /* 
+    destroyed(): 在vm已经死亡后自动调用
+    */
+    destroyed() {
+      console.log('destroyed()')
     },
+
 
     methods: {
       destroyVM () {
