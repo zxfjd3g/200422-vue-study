@@ -6,8 +6,27 @@
 </head>
 <body>
 
+<div id="test">
+  <p v-my-directive="msg"></p>
+</div>
+
 <script type="text/javascript" src="../js/vue.js"></script>
+<script src="./vue-myPlugin.js"></script>
 <script type="text/javascript">
+  // 插件必须要声明使用后, 才能使用其扩展语法 
+  Vue.use(MyPlugin) // 内部调用 MyPlugin.install(Vue)
+
+  Vue.myGlobalMethod()
+
+  const vm = new Vue({
+    el: '#test',
+    data: {
+      msg: 'haha'
+    }
+  })
+
+  vm.$myMethod()
+
 
 </script>
 </body>

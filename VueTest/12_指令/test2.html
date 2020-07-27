@@ -13,10 +13,8 @@
   })
 2. 注册局部指令
   directives : {
-    'my-directive' : {
-        bind (el, binding) {
-          el.innerHTML = binding.value.toupperCase()
-        }
+    'my-directive' :function (el, binding) {
+      el.innerHTML = binding.value.toupperCase()
     }
   }
 3. 使用指令
@@ -24,13 +22,55 @@
 -->
 <!--
 需求: 自定义2个指令
-  1. 功能类型于v-text, 但转换为全大写
-  2. 功能类型于v-text, 但转换为全小写
+  1. 功能类型于v-text, 但转换为全大写  upper-text
+  2. 功能类型于v-text, 但转换为全小写  lower-text
 -->
+
+<div id="test">
+  <p v-upper-text="msg2"></p>
+  <p v-lower-text="msg2"></p>
+</div>
+
+<div id="test2">
+  <p v-upper-text="msg3"></p>
+  <p v-lower-text="msg3"></p>
+</div>
 
 <script type="text/javascript" src="../js/vue.js"></script>
 <script type="text/javascript">
 
+  // 注册全局指令 upper-text  ==> 可用于所有vm的模板中
+  /* 
+  el: 指令属性所有的标签对象
+  binding: 包含指令相关信息/数据的对象 ==> 最重要是value
+  */
+  Vue.directive('upper-text', function (el, binding) { // 解析指令的函数
+    console.log('upper-text', binding)
+    el.innerText = binding.value.toUpperCase()
+  })
+
+  new Vue({
+    data() {
+      return {
+        msg2: 'I Will Back!'
+      }
+    },
+
+    directives: { // 配置局部指令 lower-text   ==> 只能用于当前vm管理的模板
+      'lower-text': function (el, binding) { // 解析指令的函数
+        console.log('lower-text', binding)
+        el.innerText = binding.value.toLowerCase()
+      }
+    }
+  }).$mount('#test')
+
+  new Vue({
+    data() {
+      return {
+        msg3: 'I Will Back2222222!'
+      }
+    },
+  }).$mount('#test2')
 </script>
 </body>
 </html>
