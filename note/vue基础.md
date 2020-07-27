@@ -161,6 +161,23 @@
 		xxx-leave-active: 指定隐藏的transition
 		xxx-enter: 指定隐藏时的样式
 
+## 自定义过滤器
+	1). 理解过滤器
+	  功能: 对要显示的数据进行特定格式化后再显示
+	  注意: 并没有改变原本的数据, 可是产生新的对应的数据
+	2). 编码
+	  1). 定义过滤器
+	    Vue.filter(filterName, function(value[,arg1,arg2,...]){
+	      // 进行一定的数据处理
+	      return newValue
+	    })
+	  2). 使用过滤器
+	    <div>{{myData | filterName}}</div>
+	    <div>{{myData | filterName(arg)}}</div>
+
+
+
+
 ## 编码任务列表
 1-- vue helloworld
 2-- 理解MVVM, 数据绑定, 双向数据绑定
@@ -178,3 +195,4 @@
 14-- 利用生命周期实现功能
 15-- 测试生命周期勾子
 16-- 过渡与动画
+17-- 自定义过滤器
