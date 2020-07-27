@@ -147,6 +147,20 @@
 			created()执行稍微早一点点,差别不大, 但如果在发请求前需要读取初始页面那就只能用mounted()
 		beforeDestroy(): 一般在此执行一些收尾工作: 清除定时器/...
 
+## 过渡与动画
+	1). vue动画的理解
+		操作css的trasition或animation
+		vue会给目标元素添加/移除特定的class
+	2). 基本过渡动画的编码
+		1). 在目标元素外包裹<transition name="xxx">
+		2). 定义class样式
+			1>. 指定过渡样式: transition
+			2>. 指定隐藏时的样式: opacity/其它
+	3). 过渡的类名
+		xxx-enter-active: 指定显示的transition
+		xxx-leave-active: 指定隐藏的transition
+		xxx-enter: 指定隐藏时的样式
+
 ## 编码任务列表
 1-- vue helloworld
 2-- 理解MVVM, 数据绑定, 双向数据绑定
