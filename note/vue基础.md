@@ -118,6 +118,14 @@
 		@click.prevent="regist"
 		@submit.prevent="regist"
 
+## vm生命周期
+	生命周期钩子: 生命周期回调函数
+	整个生命周期由3个大的阶段
+		初始化显示
+		更新显示
+		死亡
+	在vm整个生命周期的过程中的特定时刻, 会自动调用某个回调函数来通知你
+
 
 ## 编码任务列表
 1-- vue helloworld
