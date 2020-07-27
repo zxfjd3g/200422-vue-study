@@ -112,6 +112,10 @@
 		Vue在外层自动包了一层函数定义, 作为点击监听的回调函数, $event就是接收事件对象的形参数变量
     	@click="($event) => test3('atguigu', $event)"
 
+## 表单输入绑定
+	使用v-model自动收集数据
+
+
 ## 编码任务列表
 1-- vue helloworld
 2-- 理解MVVM, 数据绑定, 双向数据绑定
