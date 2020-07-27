@@ -8,6 +8,8 @@
 <body>
 
   <div id="test">
+    <p>非响应式数据: {{msg2}}</p>
+    <p>响应式数据: {{msg}}</p>
     <p>{{user.username}}</p>
 
     <ul>
@@ -15,13 +17,18 @@
         {{p.id}}--{{p.name}}--{{p.age}}
       </li>
     </ul>
+
+    <hr>
+    <button @click="update">更新</button>
   </div>
   <script type="text/javascript" src="../js/vue.js"></script>
   <script>
     const vm = new Vue({
       el: '#test',
       data () {
+        this.msg2 = 'atguigu'  // 只存在于vm上, 不在data中, 是非响应式数据
         return {
+          msg: 'abc',
           user: {username: 'tom', pwd: 'abc'},
           persons: [
             {id: 1, name: 'tom', age: 15},
@@ -31,20 +38,45 @@
             {id: 7, name: 'cat', age: 6},
           ]
         }
-      }
+      },
+
+      methods: {
+        update () {
+          // this.msg = this.msg + '--'
+          // this.user = {username: 'jack'}
+          // this.persons = []
+
+          // this.user.username = 'jack'
+
+          // // 此处调用的是vue重新实现的splice方法
+          // this.persons.splice(1, 1, {id: Date.now(), name:'atguigu', age: 8})
+          // this.persons[1] = {id: Date.now(), name:'atguigu', age: 8}
+
+          // vm.persons[2].name = 'xxx'
+
+          // 会触发界面更新, 但不是立即更新界面, 而在所有同步更新操作都执行完后才异步更新界面的
+          // this.msg = this.msg + '--'  
+          // this.persons[1] = {id: Date.now(), name:'atguigu', age: 8}  // 不会触发界面更新
+
+          // 响应式数据与非响应式数据
+          // this.msg = this.msg + '---'  // 数据最终保存到data对象中的msg上
+          this.msg2 = this.msg2 + '---'
+        }
+      },
     })
    
-    setTimeout(() => {
-      vm.user = {username: 'bob'}
-      vm.user.username = 'jack'
+    // setTimeout(() => {
+    //   vm.user = {username: 'bob'}
+    //   vm.user.username = 'jack'
 
-      // 此处调用的是vue重新实现的splice方法
-      vm.persons.splice(1, 1, {id: Date.now(), name:'atguigu', age: 8})
-      // vm.persons[1] = {id: Date.now(), name:'atguigu', age: 8}
-      vm.persons[2].name = 'xxx'
-    }, 1000);
+    //   // 此处调用的是vue重新实现的splice方法
+    //   vm.persons.splice(1, 1, {id: Date.now(), name:'atguigu', age: 8})
+    //   // vm.persons[1] = {id: Date.now(), name:'atguigu', age: 8}
+    //   vm.persons[2].name = 'xxx'
+    // }, 1000);
 
     console.log(vm)
+    console.log([1])
 
     /* 
     ~~~非常重要~~
