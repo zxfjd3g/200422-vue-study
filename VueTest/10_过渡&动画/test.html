@@ -3,6 +3,46 @@
 <head>
   <meta charset="UTF-8">
   <title>10_过渡&动画1</title>
+
+  <style>
+    /* 
+    指定过渡的样式
+    fade-enter-active: 显示的过渡
+    fade-leave-active: 隐藏的过渡
+     */
+    .fade-enter-active, .fade-leave-active {
+      transition: opacity 5s;
+    }
+    /* 
+    隐藏时的样式
+    fade-enter: 进入的起始隐藏时
+    fade-leave-to: 离开结束隐藏时
+    */
+    .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+      opacity: 0;
+    }
+
+    /* 
+    显示和离开时有x轴移动, 时间不一样
+      移动到右边隐藏
+      显示: 1S
+      隐藏: 4S
+    */
+    /* 显示的transition */
+    .move-enter-active{
+      transition: all 1s;
+    }
+    /* 隐藏的transition */
+    .move-leave-active {
+      transition: all 4s;
+    }
+    /* 隐藏时的样式 */
+    .move-enter, .move-leave-to {
+      opacity: 0;
+      transform: translateX(20px);
+    }
+
+  </style>
 </head>
 <body>
 <!--
@@ -21,9 +61,40 @@
 -->
 
 
+<div id="demo">
+  <button @click="show = !show">
+    Toggle
+  </button>
+  <transition name="fade">
+    <p v-show="show">hello</p>
+  </transition>
+</div>
+
+
+<div id="demo2">
+  <button @click="show = !show">
+    Toggle
+  </button>
+  <transition name="move">
+    <p v-show="show">hello</p>
+  </transition>
+</div>
+
 <script type="text/javascript" src="../js/vue.js"></script>
 <script type="text/javascript">
+  new Vue({
+    el: '#demo',
+    data: {
+      show: true
+    }
+  })
 
+  new Vue({
+    el: '#demo2',
+    data: {
+      show: true
+    }
+  })
 </script>
 </body>
 </html>
