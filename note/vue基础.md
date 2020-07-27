@@ -95,7 +95,22 @@
 		非响应式数据: 只存在于vm上的属性
 
 ## 事件处理
-
+	1). 绑定监听:
+	  v-on:xxx="fun"
+	  @xxx="fun"
+	  @xxx="fun(参数)"
+	  默认事件形参: event
+	  隐含属性对象: $event
+	2). 事件修饰符:
+	  .prevent : 阻止事件的默认行为 event.preventDefault()
+	  .stop : 停止事件冒泡 event.stopPropagation()
+	  .once: 事件响应一次
+	3). 按键修饰符
+	  .keycode : 操作的是某个keycode值的健
+	  .enter : 操作的是enter键
+	难点: 理解@xxx="fun('atguigu', $event)"
+		Vue在外层自动包了一层函数定义, 作为点击监听的回调函数, $event就是接收事件对象的形参数变量
+    	@click="($event) => test3('atguigu', $event)"
 
 ## 编码任务列表
 1-- vue helloworld
