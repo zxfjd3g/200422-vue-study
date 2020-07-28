@@ -9,6 +9,20 @@
 ### 原始方式
 	
 
+
+	// 生成组件构造函数的方法
+	Vue.extend = function (extendOptions) {
+
+	    var Super = this;
+	
+	    var Sub = function VueComponent (options) {
+	      this._init(options);
+	    };
+	    Sub.prototype = Object.create(Super.prototype);
+		return Sub
+	};
+
 ### 单文件组件
 
 ## 编码任务列表
+-1. 原始方式定义组件
