@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <div id="test">
+    <counter-button></counter-button>
+    <counter-button></counter-button>
+    <counter-button></counter-button>
+
+    <hr>
+
+    <blog-post title="AAAA"></blog-post>
+    <blog-post title="BBBB"></blog-post>
+    <blog-post title="CCCC"></blog-post>
+
+    <hr>
+
+    <blog-post v-for="post in posts" :key="post.id" :title="post.title"></blog-post>
+
+  </div>
+  </div>
+  
+  <script src="./js/vue.js"></script>
+  <script>
+    // 定义并注册组件
+    Vue.component('counter-button', { // 配置对象
+      data() { 
+        return { // 组件内部的可变数据
+          count: 1
+        }
+      },
+      template: '<button @click="count += 2">点击了{{count}}次</button>'
+    })
+
+
+    // 注册一个组件
+    Vue.component('blog-post', {
+      props: ['title'], // 声明接收标签属性(外部数据)  ==> 自动成功为组件对象的属性
+      template: '<div><h2>{{title}}</h2><counter-button></counter-button></div>'
+    })
+
+
+    new Vue({
+      el: '#test',
+
+      data() {
+        return {
+          posts:  [
+            { id: 1, title: '我的 Vue 旅程' },
+            { id: 2, title: '用 Vue 写博客' },
+            { id: 3, title: 'Vue 如此有趣' }
+          ]
+        }
+      },
+    })
+  </script>
+</body>
+</html>
