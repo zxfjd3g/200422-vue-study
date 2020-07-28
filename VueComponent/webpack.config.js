@@ -25,6 +25,13 @@ module.exports = {
   // 模块加载器
   module: {
     rules: [
+      // 处理vue文件
+      {
+        test: /\.vue$/,
+        include: resolve('src'), // 只对src下的vue文件处理
+        loader: 'vue-loader'
+      },
+
       // ES6-ED5
       {
         test: /\.js$/,
@@ -41,8 +48,8 @@ module.exports = {
       // 处理css
       {
         test: /\.css$/,
-        // use: ['style-loader', 'css-loader'], // 多个loader从右到左处理
-        use: ['vue-style-loader', 'css-loader'], // vue-style-loader是对style-loader的增强
+        use: ['style-loader', 'css-loader'], // 多个loader从右到左处理
+        // use: ['vue-style-loader', 'css-loader'], // vue-style-loader是对style-loader的增强
       },
 
       // 处理图片
@@ -54,23 +61,17 @@ module.exports = {
           name: 'img/[name].[ext]' // 相对于output.path
         }
       },
-      // 处理vue文件
-      {
-        test: /\.vue$/,
-        include: resolve('src'), // 只对src下的vue文件处理
-        loader: 'vue-loader'
-      }
     ]
   },
 
   // 插件
   plugins: [
+    new VueLoaderPlugin(), // 处理Vue文件的插件
+
     new HtmlWebpackPlugin({
       template: 'public/index.html', // 以哪个页面为模板页面
       filename: 'index.html' // 打包生成的html文件名  ==> dist/index.html
     }),
-
-    new VueLoaderPlugin(), // 处理Vue文件的插件
   ],
 
   // 配置开发服务器

@@ -12,7 +12,7 @@
 // fn()
 
 import Vue from 'vue'
-import App from './App'
+import App from './App' // 引入的App组件就是一个配置对象
 
 console.log('App', App)
 

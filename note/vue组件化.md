@@ -17,8 +17,15 @@
 		方式二
 			Vue.extend(配置对象): 生成组件构造函数返回
 			Vue.component('组件标签名', 组件构造函数)
+	注册组件:
+		局部
+			components: { 
+				'组件标签名': 配置对象/组件构造函数
+			}
+		全局: Vue.component('组件标签名', 配置对象/组件构造函数)
+
 	组件标签
-		一个组件标签就是一个组件函数的实例
+		一个组件标签就是一个组件函数的实例对象
 		同名的多个组件标签就是一个组件函数的多个实例对象
 	
 	data配置 必须是一个函数
@@ -27,18 +34,17 @@
 			如果data配置对象: 直接通过.data得到对象(同一个)  ==> vue直接给你报错
 			如果data配置函数: 通过调用data函数返回的data对象(不同的)  ==> 只能写函数的形式
 
-		
-	// 生成组件构造函数的方法
-	Vue.extend = function (extendOptions) {
-	
-	    var Super = this;
-	
-	    var Sub = function VueComponent (options) {
-	      this._init(options);
-	    };
-	    Sub.prototype = Object.create(Super.prototype);
-		return Sub
-	};
+	组件与Vue的关系:
+		组件是Vue的"子类型"
+		组件对象的原型对象的原型对象是Vue的原型对象 ==> 组件对象能访问Vue原型对象上的方法/属性
+		// 生成组件构造函数的方法
+		Vue.extend = function (extendOptions) {
+		    var Super = this;
+		    var Sub = function VueComponent () {
+		    };
+		    Sub.prototype = Object.create(Super.prototype);
+			return Sub
+		};
 
 ### 单文件组件
 	一个vue组件就是一个.vue的文件
@@ -47,7 +53,7 @@
 		必须编译处理后才能运行  ==> 需要有一个webpack的打包环境 ==> 自定义的/脚手架生成的
 		相对于原始方式的好处:
 			提示补全 / 高亮
-			可以写css样式, 原始的方式不可以
+			可以写css样式
 			可以进行编译预处理提高运行效率
 
 ## package.json的整体结构:
@@ -72,7 +78,8 @@
 		
 		}
 	}
-
+## 搭建vue的打包运行环境
+	根据文档写1遍
 
 
 ## 编码任务列表
