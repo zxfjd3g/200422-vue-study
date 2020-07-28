@@ -9,6 +9,7 @@ function resolve(dir) {
   return path.resolve(__dirname, dir)
 }
 module.exports = {
+  
   // 模式: 生产环境
   // mode: 'production',
 
@@ -48,8 +49,8 @@ module.exports = {
       // 处理css
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader'], // 多个loader从右到左处理
-        // use: ['vue-style-loader', 'css-loader'], // vue-style-loader是对style-loader的增强
+        // use: ['style-loader', 'css-loader'], // 多个loader从右到左处理
+        use: ['vue-style-loader', 'css-loader'], // vue-style-loader是对style-loader的增强
       },
 
       // 处理图片
@@ -82,7 +83,9 @@ module.exports = {
   },
 
   // 配置开启source-map调试  ==> 能定位到哪个源文件的哪一行
-  devtool: 'cheap-module-eval-source-map',
+  // devtool: 'cheap-module-eval-source-map',
+  // devtool: 'source-map',
+  devtool: 'none',
 
   // 引入模块的解析
   resolve: {
