@@ -24,7 +24,34 @@ module.exports = {
   // 模块加载器
   module: {
     rules: [
+      // ES6-ED5
+      {
+        test: /\.js$/,
+        //exclude: /node_modules/,
+        include: resolve('src'),
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env'] 
+          }
+        }
+      },
 
+      // 处理css
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'], // 多个loader从右到左处理
+      },
+
+      // 处理图片
+      {
+        test: /\.(png|jpe?g|gif|svg)$/,
+        loader: 'url-loader',
+        options: {
+          limit: 1024*20, // 如果图片小于这个值, 就会进行图片BASE64处理
+          name: 'img/[name].[ext]' // 相对于output.path
+        }
+      }
     ]
   },
 
@@ -34,5 +61,15 @@ module.exports = {
       template: 'public/index.html', // 以哪个页面为模板页面
       filename: 'index.html' // 打包生成的html文件名  ==> dist/index.html
     })
-  ]
+  ],
+
+  // 配置开发服务器
+  devServer: {
+    open: true, // 自动打开浏览器
+    port: 8080, // 指定启动服务器的端口号
+    stats: 'errors-only', // 只输出错误日志
+  },
+
+  // 配置开启source-map调试  ==> 能定位到哪个源文件的哪一行
+  devtool: 'cheap-module-eval-source-map',
 }
