@@ -1,5 +1,6 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 /* 
 得到指定目录(必须在项目根目录下)的绝对路径 
@@ -40,7 +41,8 @@ module.exports = {
       // 处理css
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader'], // 多个loader从右到左处理
+        // use: ['style-loader', 'css-loader'], // 多个loader从右到左处理
+        use: ['vue-style-loader', 'css-loader'], // vue-style-loader是对style-loader的增强
       },
 
       // 处理图片
@@ -48,9 +50,15 @@ module.exports = {
         test: /\.(png|jpe?g|gif|svg)$/,
         loader: 'url-loader',
         options: {
-          limit: 1024*20, // 如果图片小于这个值, 就会进行图片BASE64处理
+          limit: 1024*45, // 如果图片小于这个值, 就会进行图片BASE64处理 ==> 减少图片请求
           name: 'img/[name].[ext]' // 相对于output.path
         }
+      },
+      // 处理vue文件
+      {
+        test: /\.vue$/,
+        include: resolve('src'), // 只对src下的vue文件处理
+        loader: 'vue-loader'
       }
     ]
   },
@@ -60,7 +68,9 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: 'public/index.html', // 以哪个页面为模板页面
       filename: 'index.html' // 打包生成的html文件名  ==> dist/index.html
-    })
+    }),
+
+    new VueLoaderPlugin(), // 处理Vue文件的插件
   ],
 
   // 配置开发服务器
@@ -72,4 +82,16 @@ module.exports = {
 
   // 配置开启source-map调试  ==> 能定位到哪个源文件的哪一行
   devtool: 'cheap-module-eval-source-map',
+
+  // 引入模块的解析
+  resolve: {
+    extensions: ['.js', '.vue', '.json'], // 可以省略的后缀名
+    alias: { // 路径别名(简写方式)
+      // import Vue from 'vue'  // 默认找vue vue.runtime.common.js  不带编译器的版本
+      // 'vue$': 'vue/dist/vue.esm.js',  // 如果是引入'vue', 加载带编译的版本
+      '@': resolve('src'),
+    }
+  }
 }
+    
+        

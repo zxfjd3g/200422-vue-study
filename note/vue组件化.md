@@ -81,3 +81,4 @@
 -3. 组件与Vue的关系理解
 -4. 搭建webpack基本环境
 -5. 打包JS-CSS-IMAGE
+-6. 搭建vue打包环境,比较render与template

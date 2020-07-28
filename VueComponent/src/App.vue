@@ -8,7 +8,7 @@
 export default { // 默认暴露配置对象
   data() {
     return {
-      title: 'Test 组件标题'
+      title: 'App 组件标题'
     }
   },
 }
