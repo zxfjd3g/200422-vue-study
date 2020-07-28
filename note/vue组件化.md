@@ -50,7 +50,28 @@
 			可以写css样式, 原始的方式不可以
 			可以进行编译预处理提高运行效率
 
-
+## package.json的整体结构:
+	{
+		// 应用的标识
+		// 名称
+		"name": "vue-component",
+		// 版本号
+		"version": "1.0.0",
+		
+		// 打包/运行项目的脚本命令
+		"scripts": {
+		"build": "webpack"
+		},
+		
+		// 运行时依赖包声明
+		"dependencies": {
+		
+		},
+		// 开发时(编译打包)依赖包声明
+		"devDependencies": {
+		
+		}
+	}
 
 
 

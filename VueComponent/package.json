@@ -1,0 +1,11 @@
+{
+  "name": "vue-component",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "webpack"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "html-webpack-plugin": "^4.3.0"
+  }
+}
