@@ -1,10 +1,11 @@
 <template>
-  <li>
+  <li :style="{background: bgColor}" 
+      @mouseenter="handleEnter(true)" @mouseleave="handleEnter(false)">
     <label>
       <input type="checkbox" v-model="todo.complete"/>
       <span>{{todo.title}}</span>
     </label>
-    <button class="btn btn-danger" style="display:none">删除</button>
+    <button class="btn btn-danger" v-show="isShow" @click="deleteItem">删除</button>
   </li>
 </template>
 
@@ -14,8 +15,42 @@
     // 声明接收标签属性: 属性名/属性值类型
     // props: ['todo']
     props: {
-      todo: Object
-    }
+      todo: Object,
+      deleteTodo: Function,
+      index: Number
+    },
+
+    data() {
+      return {
+        bgColor: '#fff', // 背景颜色
+        isShow: false, // 按钮是否显示
+      }
+    },
+
+    methods: {
+      /* 
+      鼠标移入与移出的监听
+      */
+      handleEnter (isEnter) {
+        if (isEnter) {
+          this.bgColor = '#aaa'
+          this.isShow = true
+        } else {
+          this.bgColor = '#fff'
+          this.isShow = false
+        }
+      },
+
+      /* 
+      响应点击删除按钮
+      */
+      deleteItem () {
+        if (window.confirm(`确定删除吗?`)) {
+          // 删除todos中的当前todo
+          this.deleteTodo(this.index)
+        }
+      }
+    },
   }
 </script>
 
@@ -42,7 +77,6 @@ li label li input {
 
 li button {
   float: right;
-  display: none;
   margin-top: 3px;
 }
 

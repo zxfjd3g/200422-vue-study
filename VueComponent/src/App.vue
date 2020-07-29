@@ -4,7 +4,7 @@
     <div class="todo-wrap">
       <Header :addTodo="addTodo"/>
       <!-- 通过标签属性传递数据 -->
-      <List :todos="todos"/>
+      <List :todos="todos" :deleteTodo="deleteTodo"/>
       <Footer/>
     </div>
   </div>
@@ -43,6 +43,13 @@ export default {
       }
       // 添加到todos的第一位
       this.todos.unshift(todo)
+    },
+
+    /* 
+    删除todo
+    */
+    deleteTodo (index) {
+      this.todos.splice(index, 1)
     }
   },
 
