@@ -1,6 +1,7 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 /* 
 得到指定目录(必须在项目根目录下)的绝对路径 
@@ -67,12 +68,23 @@ module.exports = {
 
   // 插件
   plugins: [
+    // 打包vue
     new VueLoaderPlugin(), // 处理Vue文件的插件
-
+    // 打包html
     new HtmlWebpackPlugin({
       template: 'public/index.html', // 以哪个页面为模板页面
       filename: 'index.html' // 打包生成的html文件名  ==> dist/index.html
     }),
+
+    // 拷贝指定文件(public下的)
+    // 拷贝静态资源到打包文件夹
+    new CopyWebpackPlugin([
+      {
+        from: resolve('public'),
+        to: resolve('dist'),
+        ignore: ['index.html']
+      }
+    ]),
   ],
 
   // 配置开发服务器
