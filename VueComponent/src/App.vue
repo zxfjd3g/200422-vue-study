@@ -3,7 +3,8 @@
   <div class="todo-container">
     <div class="todo-wrap">
       <Header/>
-      <List/>
+      <!-- 通过标签属性传递数据 -->
+      <List :todos="todos"/>
       <Footer/>
     </div>
   </div>
@@ -17,6 +18,16 @@ import List from './components/List'
 import Footer from './components/Footer'
 export default {
   name: 'App',
+
+  data() {
+    return {
+      todos: [
+        {id: 1, title: 'A', complete: false},
+        {id: 2, title: 'B', complete: true},
+        {id: 3, title: 'C', complete: false}
+      ]
+    }
+  },
 
   // 局部注册
   components: {

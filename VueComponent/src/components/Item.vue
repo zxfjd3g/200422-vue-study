@@ -1,8 +1,8 @@
 <template>
   <li>
     <label>
-      <input type="checkbox" />
-      <span>xxxxx</span>
+      <input type="checkbox" v-model="todo.complete"/>
+      <span>{{todo.title}}</span>
     </label>
     <button class="btn btn-danger" style="display:none">删除</button>
   </li>
@@ -11,6 +11,11 @@
 <script>
   export default {
     name: 'Item',
+    // 声明接收标签属性: 属性名/属性值类型
+    // props: ['todo']
+    props: {
+      todo: Object
+    }
   }
 </script>
 
