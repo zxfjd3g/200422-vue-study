@@ -5,7 +5,7 @@
       <Header :addTodo="addTodo"/>
       <!-- 通过标签属性传递数据 -->
       <List :todos="todos" :number="3" :deleteTodo="deleteTodo" :updateTodo="updateTodo"/>
-      <Footer/>
+      <Footer :todos="todos" :checkAllTodos="checkAllTodos" :clearCompleteTodos="clearCompleteTodos"/>
     </div>
   </div>
    
@@ -58,6 +58,20 @@ export default {
     updateTodo (todo, isCheck) {
       console.log('updateTodo()')
       todo.complete = isCheck
+    },
+
+    /* 
+    全选或全不选
+    */
+    checkAllTodos (isCheck) {
+      this.todos.forEach(todo => todo.complete = isCheck)
+    },
+
+    /* 
+    清除所有已完成的
+    */
+    clearCompleteTodos () {
+      this.todos = this.todos.filter(todo => !todo.complete)
     }
   },
 

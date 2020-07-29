@@ -32,12 +32,14 @@
       isCheck: {
         // 是否勾选由todo的complete
         get () {
-          this.todo.complete
+          return this.todo.complete
         },
 
+        // 当前用户点击勾选框时自动调用
         set (value) { // value是当前选中的最新值true/false
           // 调用父组件传递过来的函数更新父组件数据
           this.updateTodo(this.todo, value)
+          // this.todo.complete = value  // 不能直接这么做
         }
       }
     },
