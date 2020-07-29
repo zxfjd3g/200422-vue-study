@@ -4,7 +4,7 @@
     <div class="todo-wrap">
       <Header :addTodo="addTodo"/>
       <!-- 通过标签属性传递数据 -->
-      <List :todos="todos" :deleteTodo="deleteTodo"/>
+      <List :todos="todos" :number="3" :deleteTodo="deleteTodo" :updateTodo="updateTodo"/>
       <Footer/>
     </div>
   </div>
@@ -50,6 +50,14 @@ export default {
     */
     deleteTodo (index) {
       this.todos.splice(index, 1)
+    },
+
+    /* 
+    更新todo(complete设置为true/false)
+    */
+    updateTodo (todo, isCheck) {
+      console.log('updateTodo()')
+      todo.complete = isCheck
     }
   },
 
