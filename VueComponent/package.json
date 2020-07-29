@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "scripts": {
     "build": "webpack --mode production",
-    "dev": "webpack-dev-server --mode development"
+    "dev": "webpack-dev-server --mode development",
+    "serve": "webpack-dev-server --mode development"
   },
   "dependencies": {
     "vue": "^2.6.11"

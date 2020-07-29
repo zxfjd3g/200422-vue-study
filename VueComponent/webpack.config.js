@@ -83,9 +83,9 @@ module.exports = {
   },
 
   // 配置开启source-map调试  ==> 能定位到哪个源文件的哪一行
-  // devtool: 'cheap-module-eval-source-map',
+  devtool: 'cheap-module-eval-source-map',
   // devtool: 'source-map',
-  devtool: 'none',
+  // devtool: 'none',
 
   // 引入模块的解析
   resolve: {

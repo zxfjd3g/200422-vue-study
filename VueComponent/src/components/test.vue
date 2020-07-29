@@ -5,6 +5,11 @@
 </template>
 
 <script>
+// import other from '../other'
+import other from '@/other'
+
+other()
+
 export default {
   name: '',
 }

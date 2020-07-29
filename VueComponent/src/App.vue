@@ -10,7 +10,7 @@
 import test from './components/test' // 引入组件
 export default { // 默认暴露配置对象
   data() {
-    consol.log('===')
+    console.log('===')
     return {
       title: 'App 组件标题'
     }

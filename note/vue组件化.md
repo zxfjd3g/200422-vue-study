@@ -81,41 +81,68 @@
 
 ## 搭建基础的打包运行环境
 	1). 下载依赖包
-		webpack webpack-cli
-		html-webpack-plugin
-		webpack-dev-server
-		babel-loader @babel/core @babel/preset-env
-		css-loader@3.6.0 style-loader
-		url-loader@2.3.0 file-loader@4.3.0
+		webpack: webpack执行打包工作的核心包
+		webpack-cli: 提供启动webpack操作的命令
+		html-webpack-plugin: 在html自动引入打包生成的js/css
+		webpack-dev-server: 只在内存中打包(不生成本地打包文件), 并启动服务器运行项目  live-reload/hot-reload
+		babel-loader: 让webpack理解babel
+		@babel/core: babel的核心包
+		@babel/preset-env: 包含多个最常用的babel插件包的集合包 ==> babel的插件包: 用来解析某个具体的ES6语法
+		css-loader@3.6.0: 将css文件打包到js中
+		style-loader: 在运行能将js中的css转移到页面的<style>
+		url-loader@2.3.0 file-loader@4.3.0: 打包图片(可能需要进行base64处理)/音频/视频/字体文件
     
     2). webpack的基本配置: webpack.config.js
 		module.exports = {
-			mode: 'production|development'
+			// 模式
+			mode: 'development|production',
+			// 入口: 指定入口js
 			entry: {
-			
-			},
+				xxx: 'src/xxx.js'
+			}
+			// 出口: 指定打包文件的基础路径和具体文件名(带部分路径)
 			output: {
-			
-			},
+				path: 'dist',
+				filename: 'js/[name].bundle.js'
+			}
+
+			// 模块加载器
 			module: {
 				rules: [
-				
+					// 处理ES6转ES5的loader配置
+					// 处理CSS的loader配置
+					// 处理图片的loader配置
+					{}
 				]
-			},
+			}
+
+			// 插件
 			plugins: [
-			
-			],
+				插件对象: new HtmlWebpackPlugin()
+			]
+
+			// 开发服务器
 			devServer: {
-			
-			},
-			devtool: '',
+				open: true, // 自动打开浏览器
+				port: 8081, // 服务器启动的端口号
+			}
+
+			// 开发调试工具   sourcemap调试
+			devtool: ''
+
+			// 模块解析
 			resolve: {
-				extensions: [],
-				alias: {}
+				extensions: ['.js', '.vue'], // 哪个模块文件扩展名可以省略
+				alias: {
+					'@': resolve('src'), // 模块路径别名  ==> 同时需要配置jsconfig.json(用于vscode能识别@提示)
+				}
 			}
 		}
 
 ## 搭建Vue的开发环境
+	下载包:
+		vue
+		vue-loader / vue-template-compiler
     配置处理.Vue组件文件的loader和plugin
     配置vue-style-loader替换style-loader
     解决无法编译template配置的错误
@@ -151,7 +178,7 @@
         components: {}
       }
     </script>
-    <style scoped>
+    <style scoped>  // 作用域样式, 限制css只能当前组件有效
     </style>
 
 
