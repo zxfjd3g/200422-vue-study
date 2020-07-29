@@ -1,26 +1,28 @@
 <template>
   <div>
-    <h2>{{title}}</h2>
-    <hr>
-    <test/>
+    <Header/>
+    <List/>
+    <Footer/>
   </div>
 </template>
 
 <script>
-import test from './components/test' // 引入组件
-export default { // 默认暴露配置对象
-  data() {
-    console.log('===')
-    return {
-      title: 'App 组件标题'
-    }
-  },
+// 引入子组件
+import Header from './components/Header'
+import List from './components/List'
+import Footer from './components/Footer'
+export default {
+  name: 'App',
 
-  components: { // 局部注册
-    test
+  // 局部注册
+  components: {
+    Header,
+    List,
+    Footer
   }
 }
 </script>
 
 <style scoped>
+
 </style>
