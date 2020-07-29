@@ -2,7 +2,7 @@
 
   <div class="todo-container">
     <div class="todo-wrap">
-      <Header/>
+      <Header :addTodo="addTodo"/>
       <!-- 通过标签属性传递数据 -->
       <List :todos="todos"/>
       <Footer/>
@@ -26,6 +26,23 @@ export default {
         {id: 2, title: 'B', complete: true},
         {id: 3, title: 'C', complete: false}
       ]
+    }
+  },
+
+
+  methods: { // 所有methods中的方法都会成功组件对象的方法
+    /* 
+    添加todo
+    */
+    addTodo (title) {
+      // 创建一个新的todo对象
+      const todo = {
+        id: Date.now(),
+        complete: false,
+        title,
+      }
+      // 添加到todos的第一位
+      this.todos.unshift(todo)
     }
   },
 
