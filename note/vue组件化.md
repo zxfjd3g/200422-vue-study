@@ -247,3 +247,8 @@
 - 11. 删除todo
 - 12. 勾选todo处理
 - 13. Footer组件功能
+- 14. comments练习-拆分组件
+- 15. comments练习-静态组件界面
+- 16. comments练习-初始化动态显示列表
+- 17. comments练习-添加评论
+- 18. comments练习-删除评论
