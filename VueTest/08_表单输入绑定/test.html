@@ -15,7 +15,7 @@
 <div id="demo">
   <form action="/xxx" @submit.prevent="regist">
     <span>用户名: </span>
-    <input type="text" v-model="user.username"><br>
+    <input type="text" v-model.trim="user.username"><br>
 
     <span>密码: </span>
     <input type="password" v-model="user.pwd"  placeholder="请输入密码"><br>

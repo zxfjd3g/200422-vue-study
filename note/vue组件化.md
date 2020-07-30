@@ -229,7 +229,23 @@
 	子组件不要直接更新父组传递给它的数据, 而是要调用其传递过来的函数去更新
 
 
-
+## 组件化编码的基本流程
+	1). 拆分组件: 拆分界面, 抽取/定义组件
+		App
+		CommentAdd
+		CommentList
+			CommentItem
+	2). 实现静态组件界面
+	3). 实现动态组件
+		3.1). 初始化数据动态显示
+			初始化数据设计
+				App组件中的data数据: commentArr = [{id: 1, username:'tom', content: 'xxx'}]
+			将数据传递给相应组件显示
+				App ==commentArr==> CommentList(遍历commentArr) ==comment==> CommentItem
+		3.2). 交互
+			添加:
+			删除
+	可以给组件对象添加非响应式数据, 用于组件的方法中可以反复访问
 
 
 
