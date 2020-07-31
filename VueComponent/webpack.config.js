@@ -9,6 +9,9 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 function resolve(dir) {
   return path.resolve(__dirname, dir)
 }
+
+const SRC_DIR = 'src02_todos' // 指定特定的src文件夹名称
+
 module.exports = {
   
   // 模式: 生产环境
@@ -16,7 +19,7 @@ module.exports = {
 
   // 入口
   entry: {
-    xxx: resolve('src/index.js')
+    xxx: resolve(SRC_DIR + '/index.js')
   },
   // 出口(打包生成js)
   output: {
@@ -30,7 +33,7 @@ module.exports = {
       // 处理vue文件
       {
         test: /\.vue$/,
-        include: resolve('src'), // 只对src下的vue文件处理
+        include: resolve(SRC_DIR), // 只对src下的vue文件处理
         loader: 'vue-loader'
       },
 
@@ -38,7 +41,7 @@ module.exports = {
       {
         test: /\.js$/,
         //exclude: /node_modules/,
-        include: resolve('src'),
+        include: resolve(SRC_DIR),
         use: {
           loader: 'babel-loader',
           options: {
@@ -105,7 +108,7 @@ module.exports = {
     alias: { // 路径别名(简写方式)
       // import Vue from 'vue'  // 默认找vue vue.runtime.common.js  不带编译器的版本
       // 'vue$': 'vue/dist/vue.esm.js',  // 如果是引入'vue', 加载带编译的版本
-      '@': resolve('src'),
+      '@': resolve(SRC_DIR),
     }
   }
 }

@@ -253,7 +253,7 @@
 		注册组件名		标签名
 		CommentAdd		<CommentAdd>|<comment-add>|<commentAdd>      <Comment-add>|<Comment-Add>(可以, 但不用)
 		comment-add     <comment-add>
-		Commentadd		<Commentadd> | <commentadd>
+		Commentadd		<Commentadd>|<commentadd>
 
 		commentAdd		<commentAdd>|<comment-add>
 		commentadd		<commentadd>
@@ -265,6 +265,24 @@
 
 		CommentArr	CommentArr|comment-arr
 		Commentarr	Commentarr|commentarr
+
+### 实现关闭浏览器再打开访问看到的还是最后的数据界面?
+	存储数据
+		哪个数据?  todos
+		保存在哪?   localStorage/sessionStorage ==> 选择localStorage
+			用来在浏览器端保存文本数据的对象, 如果要保存对象/数组, 必须保存其json格式数据
+			刷新界面, 保存的数据都还在
+			语法: setItem(key, value)/getItem(key)/removeItem(key)/clear()
+			区别: 
+				sessionStorage保存的数据在关闭浏览器后自动清除
+				localStorage保存的数据在关闭后还存在
+		什么时候存?  只要todos有任何变化都保存一下todos数据
+	读取数据
+		一上来就读取
+	
+
+
+
 
 
 ## 编码任务列表
@@ -286,3 +304,6 @@
 - 16. comments练习-初始化动态显示列表
 - 17. comments练习-添加评论
 - 18. comments练习-删除评论
+- 19. 组件标签名与属性名问题
+- 20. 配置指定的src目录
+- 21. 使用localStorage存储todos
