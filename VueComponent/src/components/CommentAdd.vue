@@ -24,7 +24,7 @@
 
 <script>
 export default {
-  name: 'CommentAdd',
+  // name: 'CommentAdd2',
 
   props: {
     addComment: Function

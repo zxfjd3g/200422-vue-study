@@ -212,7 +212,8 @@
 	子组件中: 接收读取显示数据
 		接收: props声明 ==> 声明接收的所有属性都会成为组件对象的属性
 			props: ['todo', 'index']
-			props: {todo: Object, index: Number}  
+			props: {todo: Object, index: Number} 
+			props: {todo: {type: Object, required: true, default: {}, validator: value => true/false}} 
 		模板中读取显示
 
 ## 子组件更新父组件的数据
@@ -247,15 +248,32 @@
 			删除
 	可以给组件对象添加非响应式数据, 用于组件的方法中可以反复访问
 
+## 组件标签名与标签属性名大小写的问题 
+	组件标签名与注册的名称的对应关系?    完全一样 或者 大写转小写, 中间用-连接
+		注册组件名		标签名
+		CommentAdd		<CommentAdd>|<comment-add>|<commentAdd>      <Comment-add>|<Comment-Add>(可以, 但不用)
+		comment-add     <comment-add>
+		Commentadd		<Commentadd> | <commentadd>
+
+		commentAdd		<commentAdd>|<comment-add>
+		commentadd		<commentadd>
+		注意: 小写名称不要与html的标签名重名
+	声明的属性名与标签属性名的对应关系?  完全一样 或者 大写转小写, 中间用-连接
+		声明名称		标签属性名
+		commentArr	commentArr|comment-arr
+		commentarr  commentarr
+
+		CommentArr	CommentArr|comment-arr
+		Commentarr	Commentarr|commentarr
 
 
 ## 编码任务列表
--1. 原始方式定义组件
--2. 组件的理解与data函数的问题
--3. 组件与Vue的关系理解
--4. 搭建webpack基本环境
--5. 打包JS-CSS-IMAGE
--6. 搭建vue打包环境,比较render与template
+- 1. 原始方式定义组件
+- 2. 组件的理解与data函数的问题
+- 3. 组件与Vue的关系理解
+- 4. 搭建webpack基本环境
+- 5. 打包JS-CSS-IMAGE
+- 6. 搭建vue打包环境,比较render与template
 - 7. todos练习-拆分组件
 - 8. 实现静态组件界面
 - 9. 实现初始化动态显示
