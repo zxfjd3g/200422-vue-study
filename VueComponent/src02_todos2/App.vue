@@ -20,6 +20,10 @@
           <span>已完成{{completeSize}}</span> / 全部{{todos.length}}
         </span>
       </Footer>
+
+      <hr>
+      
+      <ScopeSlotTest />
     </div>
   </div>
    
@@ -31,6 +35,7 @@ import PubSub from 'pubsub-js'
 import Header from './components/Header'
 import List from './components/List'
 import Footer from './components/Footer'
+import ScopeSlotTest from './components/scopeSlot/ScopeSlotTest'
 import {readTodos, saveTodos} from './utils/localStorageUtils'
 export default {
   name: 'App',
@@ -185,7 +190,8 @@ export default {
   components: {
     Header,
     List,
-    Footer
+    Footer,
+    ScopeSlotTest
   }
 }
 </script>
