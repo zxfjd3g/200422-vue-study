@@ -2,7 +2,7 @@
   <!-- 组件模板中读取的是当前组件对象的属性 -->
   <ul class="todo-main">
     <Item v-for="(todo, index) in todos" :key="todo.id" :todo="todo"
-      :deleteTodo="deleteTodo" :index="index" :updateTodo="updateTodo"/>
+     :index="index" :updateTodo="updateTodo"/>
   </ul>
 </template>
 
@@ -13,7 +13,7 @@ export default {
 
   // 声明接收属性: 指定要接收属性的属性名
   // 声明接收的所有标签属性都会成为当前组件对象的属性
-  props: ['todos', 'deleteTodo', 'updateTodo'],
+  props: ['todos',  'updateTodo'],
 
   created() {
     console.log('+++', this.todos)

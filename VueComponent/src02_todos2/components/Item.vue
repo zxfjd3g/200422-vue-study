@@ -16,7 +16,6 @@
     // props: ['todo']
     props: {
       todo: Object,
-      deleteTodo: Function,
       index: Number,
       updateTodo: Function
     },
@@ -64,7 +63,9 @@
       deleteItem () {
         if (window.confirm(`确定删除吗?`)) {
           // 删除todos中的当前todo
-          this.deleteTodo(this.index)
+          // this.deleteTodo(this.index)
+          // 通过总线对象分发事件
+          this.$globalEventBus.$emit('deleteTodo', this.index)
         }
       }
     },

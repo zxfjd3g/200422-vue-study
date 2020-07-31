@@ -5,7 +5,7 @@
       <!-- <Header @addTodo="addTodo"/> -->
       <Header ref="header"/>
       <!-- 通过标签属性传递数据 -->
-      <List :todos="todos" :deleteTodo="deleteTodo" :updateTodo="updateTodo"/>
+      <List :todos="todos" :updateTodo="updateTodo"/>
       <Footer :todos="todos" :checkAllTodos="checkAllTodos" :clearCompleteTodos="clearCompleteTodos"/>
     </div>
   </div>
@@ -37,11 +37,14 @@ export default {
     // this.$on('addTodo', this.addTodo)  // 不对, 这是给App组件对象绑定
     this.$refs.header.$on('addTodo', this.addTodo) 
 
+    // 给总线对象绑定事件监听
+    this.$globalEventBus.$on('deleteTodo', this.deleteTodo)
   },
 
   beforeDestroy() {
     // 解绑事件监听
     this.$refs.header.$off('addTodo')
+    this.$globalEventBus.$off('deleteTodo')
   },
 
   watch: {
