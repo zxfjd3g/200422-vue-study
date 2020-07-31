@@ -2,7 +2,8 @@
 
   <div class="todo-container">
     <div class="todo-wrap">
-      <Header @addTodo="addTodo"/>
+      <!-- <Header @addTodo="addTodo"/> -->
+      <Header ref="header"/>
       <!-- 通过标签属性传递数据 -->
       <List :todos="todos" :deleteTodo="deleteTodo" :updateTodo="updateTodo"/>
       <Footer :todos="todos" :checkAllTodos="checkAllTodos" :clearCompleteTodos="clearCompleteTodos"/>
@@ -21,12 +22,26 @@ export default {
   name: 'App',
 
   data() {
+    console.log('app', this)
     return {
       // 读取local中保存的todos数据作为初始值
       // 如果local中没有, 默认得到是null, 必须指定[]
       // todos: JSON.parse(window.localStorage.getItem('todos_key')) || []
       todos: readTodos()
     }
+  },
+
+
+  mounted() {
+    // 给Header绑定自定义事件监听
+    // this.$on('addTodo', this.addTodo)  // 不对, 这是给App组件对象绑定
+    this.$refs.header.$on('addTodo', this.addTodo) 
+
+  },
+
+  beforeDestroy() {
+    // 解绑事件监听
+    this.$refs.header.$off('addTodo')
   },
 
   watch: {
