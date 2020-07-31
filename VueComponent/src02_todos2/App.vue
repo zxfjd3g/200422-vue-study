@@ -5,7 +5,7 @@
       <!-- <Header @addTodo="addTodo"/> -->
       <Header ref="header"/>
       <!-- 通过标签属性传递数据 -->
-      <List :todos="todos" :updateTodo="updateTodo"/>
+      <List :todos="todos"/>
       <Footer :todos="todos" :checkAllTodos="checkAllTodos" :clearCompleteTodos="clearCompleteTodos"/>
     </div>
   </div>
@@ -13,6 +13,7 @@
 </template>
 
 <script>
+import PubSub from 'pubsub-js'
 // 引入子组件
 import Header from './components/Header'
 import List from './components/List'
@@ -39,6 +40,12 @@ export default {
 
     // 给总线对象绑定事件监听
     this.$globalEventBus.$on('deleteTodo', this.deleteTodo)
+
+    // 订阅消息
+    PubSub.subscribe('updateTodo', (msg, {todo, isCheck}) => {  
+      // 是pubsub库控制调用的, this默认不是组件对象, 需要用箭头函数
+      this.updateTodo(todo, isCheck)
+    })
   },
 
   beforeDestroy() {
