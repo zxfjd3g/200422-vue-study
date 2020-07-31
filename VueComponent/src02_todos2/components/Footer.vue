@@ -1,13 +1,16 @@
 <template>
   <div class="todo-footer">
     <label>
-      <input type="checkbox" v-model="isCheckAll"/>
+      <!-- <input type="checkbox" v-model="isCheckAll"/> -->
+      <slot name="left"></slot> <!-- 命名插槽 -->
     </label>
-    <span>
+    <!-- <span>
       <span>已完成{{completeSize}}</span> / 全部{{todos.length}}
-    </span>
-    <button class="btn btn-danger" v-show="completeSize>0" 
-      @click="clearCompleteTodos">清除已完成任务</button>
+    </span> -->
+    <slot>abcd</slot>  <!-- 默认插槽 -->
+    <!-- <button class="btn btn-danger" v-show="completeSize>0" 
+      @click="clearCompleteTodos">清除已完成任务</button> -->
+    <slot name="right"></slot> <!-- 命名插槽 -->
   </div>
 </template>
 
@@ -19,41 +22,6 @@
 */
 export default {
   name: 'Footer',
-  props: {
-    todos: Array,
-    checkAllTodos: Function,
-    clearCompleteTodos: Function
-  },
-
-  computed: {
-
-    /* 
-    计算完成的数量
-    */
-    completeSize () {
-      let size = 0
-      this.todos.forEach(todo => {
-        if (todo.complete) size++
-      })
-      return size
-
-      // 也可以用array.reduce()
-    },
-
-    /* 
-    是否勾选全选框
-    */
-    isCheckAll: {
-      get () { // 是否全部完成了
-        // return this.todos.every(todo => todo.complete) && this.todos.length>0
-        return this.todos.length===this.completeSize && this.completeSize>0 // 不要加()调用, 只需要取值
-      },
-
-      set (value) { // value代表的就是勾选框的勾选状态值
-        this.checkAllTodos(value)
-      }
-    }
-  },
 }
 </script>
 

@@ -6,7 +6,20 @@
       <Header ref="header"/>
       <!-- 通过标签属性传递数据 -->
       <List :todos="todos"/>
-      <Footer :todos="todos" :checkAllTodos="checkAllTodos" :clearCompleteTodos="clearCompleteTodos"/>
+      <Footer>
+        <template slot="left">
+          <input type="checkbox" v-model="isCheckAll"/>
+        </template>
+
+        <template slot="right">
+          <button class="btn btn-danger" v-show="completeSize>0" 
+            @click="clearCompleteTodos">清除已完成任务</button>
+        </template>
+
+        <span>
+          <span>已完成{{completeSize}}</span> / 全部{{todos.length}}
+        </span>
+      </Footer>
     </div>
   </div>
    
@@ -29,6 +42,36 @@ export default {
       // 如果local中没有, 默认得到是null, 必须指定[]
       // todos: JSON.parse(window.localStorage.getItem('todos_key')) || []
       todos: readTodos()
+    }
+  },
+
+  computed: {
+
+    /* 
+    计算完成的数量
+    */
+    completeSize () {
+      let size = 0
+      this.todos.forEach(todo => {
+        if (todo.complete) size++
+      })
+      return size
+
+      // 也可以用array.reduce()
+    },
+
+    /* 
+    是否勾选全选框
+    */
+    isCheckAll: {
+      get () { // 是否全部完成了
+        // return this.todos.every(todo => todo.complete) && this.todos.length>0
+        return this.todos.length===this.completeSize && this.completeSize>0 // 不要加()调用, 只需要取值
+      },
+
+      set (value) { // value代表的就是勾选框的勾选状态值
+        this.checkAllTodos(value)
+      }
     }
   },
 
