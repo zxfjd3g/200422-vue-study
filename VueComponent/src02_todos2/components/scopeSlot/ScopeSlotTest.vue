@@ -8,9 +8,9 @@
         slot-scope: 指定接收子组件中<slot>传递过来的所有属性的对象
           scope的结构: {row: todo对象, index: 下标}
        -->
-       <template slot-scope="scope">
-         <span v-if="scope.row.isComplete" style="color: green">{{scope.row.text}}</span>
-         <span v-else>{{scope.row.text}}</span>
+       <template slot-scope="{row, $index}">
+         <span v-if="row.isComplete" style="color: green">{{row.text}}</span>
+         <span v-else>{{row.text}}</span>
        </template>
       
     </TodoList>
@@ -19,7 +19,7 @@
     <h2>效果二: 显示TODO列表时, 带序号, TODO的颜色为蓝绿搭配</h2>
     <TodoList :data="todos2">
       <template slot-scope="xxx">
-        <span :style="{color: xxx.index%2==0?'blue':'green'}">{{xxx.index + 1}}--{{xxx.row.text}}</span>
+        <span :style="{color: xxx.$index%2==0?'blue':'green'}">{{xxx.$index + 1}}--{{xxx.row.text}}</span>
       </template>
     </TodoList>
   </div>

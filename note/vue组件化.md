@@ -274,11 +274,11 @@
 			刷新界面, 保存的数据都还在
 			语法: setItem(key, value)/getItem(key)/removeItem(key)/clear()
 			区别: 
-				sessionStorage保存的数据在关闭浏览器后自动清除
-				localStorage保存的数据在关闭后还存在
-		什么时候存?  只要todos有任何变化都保存一下todos数据
+				sessionStorage保存的数据在关闭浏览器后自动清除(保存在内存中)
+				localStorage保存的数据在关闭后还存在(保存在本地文本)
+		什么时候存?  只要todos有任何变化都保存一下todos数据 ==> 深度watch
 	读取数据
-		一上来就读取
+		一上来就读取 ==> 读取作为初始值
 	
 ## 组件间通信/传值的理解
 	一个组件向另一个组件传递数据  ==> 组件间通信/传值
@@ -328,7 +328,7 @@
 		分发事件: 必须执行分发的函数代码才可以
 			事件名: 需要与绑定监听的事件名要一致
 			数据:  可以指定任意多个数据
-					v-on:eventName="fn"
+					@eventName="fn"
 		绑定事件监听: $on('eventName', (data) => {}) ==> 用来接收数据
 		分发事件:  $emit('eventName', 'abc')  ==> 用来传递数据
 	通信:
@@ -388,6 +388,18 @@
 			<template slot-scope="xxx">
 		       <span>{{xxx.index + 1}}--{{xxx.row.text}}</span>
 		    </template>
+
+## 数组声明式系列方法
+	forEach() / filter() / reduce() / map() / find() / findIndex() / every() / some()
+
+## 在vue项目中与后台交互(发送ajax)
+	1) 如何发ajax请求?
+		vue-resource: vue的插件(不是官方提供), 基本只用于vue1.x
+		axios: 专门用来发ajax请求的独立库, vue2.x开始建议使用axios    react也是基本用它
+	2) 在哪/什么时候发ajax请求?
+		一打开页面就要去请求数据: mounted() / created()
+		用户进行了特定操作后才去请求数据: 在事件回调函数中
+		
 
 
 ## 编码任务列表
