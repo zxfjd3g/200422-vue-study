@@ -413,7 +413,14 @@
 					changeOrigin: true, // 支持跨域, 如果协议/主机也不相同, 必须加上
 				}
 			}
-	
+	4). 使用async&await来简化promise的使用
+		不用再使用.then()来指定成功或失败的回调来得到异步成功或失败的结果数据
+		使用await: 在结果为promise的表达式左侧使用
+		使用async: await所在函数定义的左侧使用
+		问题: 当前打包处理不了async&await的语法
+		解决: 使用@babel/polyfill包来提供async&await的编译实现
+			办法一: import '@babel/polyfill'
+			入口配置: xxx: ['@babel/polyfill', resolve(SRC_DIR + '/index.js')]
 
 ## 编码任务列表
 - 1. 原始方式定义组件
@@ -448,3 +455,7 @@
 - 30. 使用vue-resource/axios发ajax请求
 - 31. 配置代理解决跨域
 - 32. 实现用户搜索的demo
+	- 1) 静态组件界面
+	- 2) 初始化动态显示
+	- 3) 搜索交互
+- 33. 使用async与await简化promise的使用

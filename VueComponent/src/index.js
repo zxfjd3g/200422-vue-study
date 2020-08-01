@@ -1,3 +1,4 @@
+import '@babel/polyfill' // 处理async&await Promise
 import Vue from 'vue'
 import VueResource from 'vue-resource'
 import App from '@/App.vue'

@@ -23,6 +23,7 @@ export default {
       // 如果有输入数据, 通知Main组件进行搜索
       if (this.searchName) {
         this.$eventBus.$emit('search', this.searchName)
+        console.log('$emit()之后')
 
         // 清除输入
         this.searchName = ''

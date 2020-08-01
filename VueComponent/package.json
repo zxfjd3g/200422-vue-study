@@ -8,6 +8,7 @@
     "server": "node server.js"
   },
   "dependencies": {
+    "@babel/polyfill": "^7.10.4",
     "axios": "^0.19.2",
     "pubsub-js": "^1.8.0",
     "vue": "^2.6.11",

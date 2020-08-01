@@ -19,7 +19,8 @@ module.exports = {
 
   // 入口
   entry: {
-    xxx: resolve(SRC_DIR + '/index.js')
+    xxx: resolve(SRC_DIR + '/index.js')  
+    // xxx: ['@babel/polyfill', resolve(SRC_DIR + '/index.js')]
   },
   // 出口(打包生成js)
   output: {
