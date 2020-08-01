@@ -109,7 +109,7 @@ module.exports = {
       */
      // 前缀路径在后台接口中路径中没有, 不可以
       // '/api': 'http://localhost:3000'
-      '/api': {
+      '/api': { // 只代理转发以/api开头的请求
         target: 'http://localhost:3000',  // 转发的目标地址
         pathRewrite: {
           '^/api': ''  // 在转发请求时, 自动将开头的/api去掉 

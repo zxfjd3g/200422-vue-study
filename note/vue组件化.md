@@ -399,8 +399,21 @@
 	2) 在哪/什么时候发ajax请求?
 		一打开页面就要去请求数据: mounted() / created()
 		用户进行了特定操作后才去请求数据: 在事件回调函数中
-		
-
+	3). 配置代理解决ajax请求跨域问题
+		注意: 
+			开发环境中已经有代理服务器了, 只是需要通过配置告诉它一此必要的信息
+			webpack-dev-server中的http-proxy-middleware就是代理服务器
+		配置: 
+			proxy: {
+				'/api': { // 只代理转发以/api开头的请求
+					target: 'http://localhost:3000',  // 转发的目标地址
+					pathRewrite: {
+					  '^/api': ''  // 在转发请求时, 自动将开头的/api去掉 
+					},
+					changeOrigin: true, // 支持跨域, 如果协议/主机也不相同, 必须加上
+				}
+			}
+	
 
 ## 编码任务列表
 - 1. 原始方式定义组件
