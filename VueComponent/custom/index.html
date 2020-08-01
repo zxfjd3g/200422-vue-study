@@ -20,11 +20,15 @@
       console.log('delete的回调', data)
     })
 
+     // 解绑监听
+    // eventBus.off('add')
+    // eventBus.off()
+    eventBus.off(123)
+
     // 分发事件
     eventBus.emit('add', 'abc')
-
-    // 解绑监听
-
+    // console.log('emit()之后')
+    eventBus.emit('delete', 'atguigu')
 
   </script>
 </body>
