@@ -4,7 +4,8 @@
   "scripts": {
     "build": "webpack --mode production",
     "dev": "webpack-dev-server --mode development",
-    "serve": "webpack-dev-server --mode development"
+    "serve": "webpack-dev-server --mode development",
+    "server": "node server.js"
   },
   "dependencies": {
     "axios": "^0.19.2",

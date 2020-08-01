@@ -10,7 +10,7 @@ function resolve(dir) {
   return path.resolve(__dirname, dir)
 }
 
-const SRC_DIR = 'src02_todos2' // 指定特定的src文件夹名称
+const SRC_DIR = 'src' // 指定特定的src文件夹名称
 
 module.exports = {
   
