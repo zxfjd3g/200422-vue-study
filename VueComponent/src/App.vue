@@ -43,7 +43,7 @@
       ajax请求跨域了, 后台没有处理, 出错
       开发中用得最多的方式: 使用代理解决跨域
       */
-      axios.get('/api/search/repositories2?q=v&sort=stars', { 
+      axios.get('/api/search/repositories2', { 
         params: { // 指定query参数
           q: 'r',
           sort: 'stars'
