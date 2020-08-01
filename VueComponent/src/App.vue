@@ -36,7 +36,14 @@
 
       // 使用axios发ajax请求获取数据
       // axios.get('https://api.github.com/search/repositories?q=v&sort=stars').then(response => {
-      axios.get('https://api.github.com/search/repositories', {
+         // ajax请求也跨域, github服务器做了cors处理允许跨域
+      // axios.get('https://api.github.com/search/repositories?q=v&sort=stars', {
+      
+      /* 
+      ajax请求跨域了, 后台没有处理, 出错
+      开发中用得最多的方式: 使用代理解决跨域
+      */
+      axios.get('/api/search/repositories2?q=v&sort=stars', { 
         params: { // 指定query参数
           q: 'r',
           sort: 'stars'

@@ -95,6 +95,28 @@ module.exports = {
     open: true, // 自动打开浏览器
     port: 8080, // 指定启动服务器的端口号
     stats: 'errors-only', // 只输出错误日志
+    proxy: {
+      /* 
+      请求: /api/search/repositories2?q=v&sort=stars  
+      本质: http:// localhost:8080/api/search/repositories2?q=v&sort=stars  
+      服务器的接口: http://localhost:3000/search/repositories2
+
+      使用: '/api': 'http://localhost:3000'
+          转发到: http://localhost:3000/api/search/repositories2?q=v&sort=stars  
+      使用: 带pathRewrite的配置
+          转发到: http://localhost:3000/search/repositories2?q=v&sort=stars  
+      
+      */
+     // 前缀路径在后台接口中路径中没有, 不可以
+      // '/api': 'http://localhost:3000'
+      '/api': {
+        target: 'http://localhost:3000',  // 转发的目标地址
+        pathRewrite: {
+          '^/api': ''  // 在转发请求时, 自动将开头的/api去掉 
+        },
+        changeOrigin: true, // 支持跨域, 如果协议/主机也不相同, 必须加上
+      }
+    },
   },
 
   // 配置开启source-map调试  ==> 能定位到哪个源文件的哪一行

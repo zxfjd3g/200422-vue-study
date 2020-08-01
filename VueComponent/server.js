@@ -116,22 +116,22 @@ app.get("/search/repositories2", function (req, res) {
       {
         id: 1,
         name: 'You-Dont-Know-JS',
-        url: 'http://www.github.com/You-Dont-Know-JS'
+        html_url: 'http://www.github.com/You-Dont-Know-JS'
       },
       {
         id: 2,
         name: 'javascript',
-        url: 'http://www.github.com/javascript'
+        html_url: 'http://www.github.com/javascript'
       },
       {
         id: 3,
         name: 'JavaGuide',
-        url: 'http://www.github.com/JavaGuide'
+        html_url: 'http://www.github.com/JavaGuide'
       },
       {
         id: 4,
         name: 'three.js',
-        url: 'http://www.github.com/three.js'
+        html_url: 'http://www.github.com/three.js'
       }
     ],
   });
