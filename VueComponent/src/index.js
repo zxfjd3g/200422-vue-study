@@ -9,5 +9,10 @@ Vue.config.productionTip = false
 Vue.use(VueResource) // 提供$http对象给所有的组件对象
 
 new Vue({
+  beforeCreate() {
+    // 将当前vm作为事件总线对象保存到Vue原型对象上
+    Vue.prototype.$eventBus = this
+  },
+
   render: h => h(App)
 }).$mount('#root')
