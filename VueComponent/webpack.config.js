@@ -19,8 +19,8 @@ module.exports = {
 
   // 入口
   entry: {
-    xxx: resolve(SRC_DIR + '/index.js')  
-    // xxx: ['@babel/polyfill', resolve(SRC_DIR + '/index.js')]
+    // xxx: resolve(SRC_DIR + '/index.js')  
+    xxx: ['@babel/polyfill', resolve(SRC_DIR + '/index.js')]
   },
   // 出口(打包生成js)
   output: {
@@ -46,7 +46,16 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env'] 
+            presets: ['@babel/preset-env'],  // 预设包
+            plugins: [ // 预设包中不包含的插件包
+              [
+                "babel-plugin-component",  // 为babel-plugin-component配置
+                {
+                  "libraryName": "element-ui", // 针对element-ui实现组件的按需打包
+                  "styleLibraryName": "theme-chalk" // 自动打包element-ui/lib/theme-chalk下的组件的样式
+                }
+              ]
+            ] // 一旦我们需要一个另外babel插件, 需要在此配置
           }
         }
       },
@@ -63,9 +72,23 @@ module.exports = {
         test: /\.(png|jpe?g|gif|svg)$/,
         loader: 'url-loader',
         options: {
-          limit: 1024*45, // 如果图片小于这个值, 就会进行图片BASE64处理 ==> 减少图片请求
-          name: 'img/[name].[ext]' // 相对于output.path
+          limit: 1024*10, // 如果图片小于这个值, 就会进行图片BASE64处理 ==> 减少图片请求
+          name: 'img/[name].[hash:8].[ext]' // 相对于output.path
         }
+      },
+
+      // 处理字体文件
+      {
+        test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 10240,
+              name: 'fonts/[name].[hash:8].[ext]'
+            }
+          }
+        ]
       },
     ]
   },

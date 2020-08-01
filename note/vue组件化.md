@@ -422,6 +422,38 @@
 			办法一: import '@babel/polyfill'
 			入口配置: xxx: ['@babel/polyfill', resolve(SRC_DIR + '/index.js')]
 
+## 使用element-ui
+	下载: npm install element-ui
+	完整引入使用
+		引入
+			import ElementUI from 'element-ui';  // 引入整个element-ui
+			import 'element-ui/lib/theme-chalk/index.css'; // 引入整个element-ui的样式
+			Vue.use(ElementUI)
+		使用:
+			<el-button> / this.$message()/this.$message.success()
+		
+	按需引入使用
+		下载: npm install babel-plugin-component -D
+		配置:
+			plugins: [
+			  [
+			    "component",  // 为babel-plugin-component配置
+			    {
+			      "libraryName": "element-ui",
+			      "styleLibraryName": "theme-chalk"
+			    }
+			  ]
+			]
+		按需引入注册:
+			import Vue from 'vue'
+			import {Button, Message} from 'element-ui'
+			// 注册全局组件
+			Vue.component(Button.name, Button)  // el-button
+			// 将Message组件函数挂载到vue原型对象上
+			Vue.prototype.$message = Message;
+		使用:
+			<el-button> / this.$message()/this.$message.success()
+
 ## 编码任务列表
 - 1. 原始方式定义组件
 - 2. 组件的理解与data函数的问题
@@ -459,3 +491,4 @@
 	- 2) 初始化动态显示
 	- 3) 搜索交互
 - 33. 使用async与await简化promise的使用
+- 34. element-ui按需引入使用
