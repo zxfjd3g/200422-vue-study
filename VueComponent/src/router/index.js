@@ -14,6 +14,9 @@ Vue.use(VueRouter)
 
 // 向外默认暴露路由器对象
 export default new VueRouter({
+  mode: 'history',
+  // mode: 'hash',
+
   // 注册应用中的多个路由
   routes: [
     {  // 路由配置对象
@@ -35,9 +38,16 @@ export default new VueRouter({
           component: Message,
           children: [
             {
+              name: 'Detail', // 给当前路由指定标识名称  ==> 通过对象的形式携带params参数
               // path: '/home/message/detail/:id', // 必须用:来指定params参数占位
               path: 'detail/:id', // 必须用:来指定params参数占位
-              component: MessageDetail
+              component: MessageDetail,
+              // 将路由参数映射成props属性传递给路由组件
+              // route: 就是当前路由信息对象, 也就是组件中的$route
+              props: route => ({ // 返回的对象中的所有属性都自动传递给路由组件对象
+                _id: route.params.id,
+                _title: route.query.title
+              })
             }
           ]
         },

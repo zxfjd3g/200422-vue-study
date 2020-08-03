@@ -593,6 +593,58 @@
 	push可以, 但replace不能
 	push居多, 如果不想有返回的效果, 用replace
 
+## 路由跳转的location的2种值
+	<router-link :to="location">
+	push(location)/replace(location)
+	1). 字符串
+		需要携带的prams与query参数需要拼在哪个串中
+		例如: /home/message/detail/${m.id}?id2=${m.id}&title=${m.title}`
+	2). 对象:
+		{
+			name: 'Detail'  // 一旦通过params配置携带参数必须指定name
+			// path: '/home/message/detail', // 不可以  
+			params: {id: 1},  // 指定params参数
+			query: {} // 指定query参数
+		}
+
+## 将路由参数映射成路由组件的props
+	props: route => ({ // 返回的对象中的所有属性都自动传递给路由组件对象
+		_id: route.params.id,
+		_title: route.query.title
+	})
+
+## 缓存路由组件
+	<keep-alive><router-view/></keep-alive>
+	缓存路由组件 ==> 离开时不会销毁 ==> 再次进入不用重新创建   ===> 提高性能
+
+## 路由的2种mode/模式:
+	hash: 带#号
+	history: 不带#号
+
+	问题: history模式刷新页面会出404的错误
+
+	http://localhost:8080/about  404
+	地址栏: http://localhost:8080/#/about ==> 请求地址:http://localhost:8080/  正常返回index页面
+
+	hash的模式在任意路由下刷新没有404问题
+		请求的总是项目根路径, 得到index页面, index页面中的路由代码就会将#后面的路径作为前台路径解析
+	history的模式在任意路由下刷新有404问题
+		请求的路径携带了前台路由路径, 没有对应的资源返回  ==> 404
+		告诉devServer一旦请求404, 给我返回index页面, index页面中的路由代码就会将根路径后面的路径作为前台路径解析
+	
+	index页面引入静态资源(css)
+		<link rel="stylesheet" href="./css/bootstrap.css">  // 当在2级及以上路由路径下刷新就会有问题
+			如果在http://localhost:8080/about上刷新:
+				http://localhost:8080/css/bootstrap.css
+			如果在http://localhost:8080/home/news上刷新: 
+				http://localhost:8080/home/css/bootstrap.css  ==> 404
+		解决: 去掉.就可以, 总是在项目根路径下找
+	打包生成的js加载404
+		http://localhost:8080/home/news下加载 <script src="js/xxx.bundle.js"></script>
+		请求打包文件的路径: http://localhost:8080/home/js/xxx.bundle.js  ==> 404
+		解决: output下配置: publicPath: '/', // 引入打包的文件时路径以/开头
+		
+
 ## 编码任务列表
 - 1. 原始方式定义组件
 - 2. 组件的理解与data函数的问题

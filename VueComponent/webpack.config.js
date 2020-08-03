@@ -26,6 +26,7 @@ module.exports = {
   output: {
     path: resolve('dist'), // 所有打包文件的基础路径 
     filename: 'js/[name].bundle.js',  // dist/js/xxx.bundle.js
+    publicPath: '/', // 引入打包的文件时路径以/开头
   },
 
   // 模块加载器
@@ -141,6 +142,8 @@ module.exports = {
         changeOrigin: true, // 支持跨域, 如果协议/主机也不相同, 必须加上
       }
     },
+
+    historyApiFallback: true, // 任意的 404 响应都被替代为 index.html
   },
 
   // 配置开启source-map调试  ==> 能定位到哪个源文件的哪一行

@@ -5,8 +5,8 @@
         <router-link :to="`/home/message/detail/${m.id}?id2=${m.id}&title=${m.title}`">
           {{m.title}}
         </router-link>
-          --<button @click="pushShow(m.id)">push查看</button>
-          --<button @click="replaceShow(m.id)">replace查看</button>
+        --<button @click="pushShow(m.id)">push查看</button>
+        --<button @click="replaceShow(m.id)">replace查看</button>
       </li>
     </ul>
     <button @click="$router.back()">返回</button>
@@ -41,8 +41,22 @@ export default {
 
   methods: {
     // 查看指定id的详情  push
-    pushShow (id) {
-      this.$router.push(`/home/message/detail/${id}`)
+    pushShow (id2) {
+      // location是字符串
+      // this.$router.push(`/home/message/detail/${id2}`)
+
+      // location是个对象
+      this.$router.push({
+        // path: '/home/message/detail',
+        name: 'Detail',
+        params: {
+          id: id2  // 属性名要与路由配置的:后面的名称要一致
+        },
+        query: {
+          title: 'abc'
+        }
+      })
+
     },
 
     // 查看指定id的详情 replace

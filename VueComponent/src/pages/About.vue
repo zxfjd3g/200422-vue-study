@@ -1,10 +1,15 @@
 <template>
-  <div>About</div>
+  <div>
+    <h2>About</h2>
+    <h3>msg: {{msg}}</h3>
+    <input type="text">
+  </div>
 </template>
 
 <script>
 export default {
-  // name: 'About',
+  name: 'About',
+  props: ['msg'],
   mounted() {
     console.log('About mounted()')
   },

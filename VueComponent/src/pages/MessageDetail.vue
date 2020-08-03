@@ -1,10 +1,10 @@
 <template>
   <ul>
+    <li>参数映射的props: {{_id}}---{{_title}}</li>
     <li>query参数: id2={{$route.query.id2}}, title={{$route.query.title}}</li>
     <li>id: {{$route.params.id}}</li>
     <li>title: {{detail.title}}</li>
     <li>content: {{detail.content}}</li>
-
   </ul>
 </template>
 
@@ -16,6 +16,8 @@ const allDetails = [
 ]
 export default {
   name: 'MessageDetail',
+
+  props: ['_id', '_title'],
 
   data() {
     return {
