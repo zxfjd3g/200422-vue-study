@@ -111,7 +111,7 @@ app.get("/search/users2", function (req, res) {
 注意: 如果github的接口无法返回数据, 就用这个模拟的数据返回
 */
 app.get("/search/repositories2", function (req, res) {
-  res.json({
+  res.send({
     items: [
       {
         id: 1,

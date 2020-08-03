@@ -398,7 +398,7 @@
 		axios: 专门用来发ajax请求的独立库, vue2.x开始建议使用axios    react也是基本用它
 	2) 在哪/什么时候发ajax请求?
 		一打开页面就要去请求数据: mounted() / created()
-		用户进行了特定操作后才去请求数据: 在事件回调函数中
+		用户进行了特定操作后才去请求数据: 在事件回调函数中/及相关回调中发请求 / 也可以watch的回调中发ajax
 	3). 配置代理解决ajax请求跨域问题
 		注意: 
 			开发环境中已经有代理服务器了, 只是需要通过配置告诉它一此必要的信息
@@ -429,7 +429,7 @@
 			import ElementUI from 'element-ui';  // 引入整个element-ui
 			import 'element-ui/lib/theme-chalk/index.css'; // 引入整个element-ui的样式
 			Vue.use(ElementUI)
-		使用:
+		使用:  根据文档的demo和API来编写
 			<el-button> / this.$message()/this.$message.success()
 		
 	按需引入使用
@@ -453,6 +453,83 @@
 			Vue.prototype.$message = Message;
 		使用:
 			<el-button> / this.$message()/this.$message.success()
+	2种UI组件
+		标签组件
+		函数/对象组件
+
+## 自定义事件总线
+    1). 相关语法
+        a. eventBus: 包含所有功能的全局事件总线对象
+        b. eventBus.on(eventName, listener): 绑定事件监听
+        c. eventBus.emit(eventName, data): 分发事件(同步)
+        d. eventBus.off(eventName): 解绑事件监听
+    2). 内部容器结构
+        {
+            "add": [callback1, callback2],
+            "delete": [callback3]
+        }
+
+## 自定义消息订阅与发布
+    1). 相关语法
+        a. PubSub: 包含所有功能的订阅/发布消息的管理者对象
+        b. token PubSub.subscribe(msg, subscriber): 订阅消息: 指定消息名和订阅者回调函数
+        c. PubSub.publish(msg, data): 异步发布消息: 指定消息名和数据
+        d. PubSub.publishSync(msg, data): 同步发布消息: 指定消息名和数据
+        e. PubSub.unsubscribe(flag): 取消订阅: 根据标识取消某个或某些消息的订阅
+    2). 内部容器结构
+        {
+            "add": {
+                uid_1: callback1,
+                uid_2: callback2
+            },
+            "delete": {
+                uid_3: callback3
+            }
+        }
+
+## vue-router
+	一个用来实现单页应用(SPA)的vue插件
+
+## SPA
+	Single Page Application 单页web应用  ==> 整个应用中只有一个完整页面
+	点击路由链接, 不发http请求, 只更新局部界面, 而不是刷新当前整个页面
+
+## 路由
+	什么是路由
+		就是一个映射/对应关系(key:value)
+		key是path/路径, value是函数(function)或者组件(component)
+	分类:
+		后台路由: value是回调函数, 用来处理请求, 返回响应数据
+		前台路由: value是路由组件, 用来更新显示当前路由界面
+
+## 相关API
+	创建路由器, 注册路由
+		new VueRouter({
+			mode: 'hash/history', // 路由的2种模式
+			routes: [ // 注册项目中的多个路由
+				{ // 一般路由
+					path: '/about',
+					component: About
+				},
+				{ // 自动跳转的路由
+					path: '/',
+					redirect: '/about'
+				}
+			]
+		})
+	注册路由器
+		import router from './router'
+		new Vue({
+			router,
+		})
+	2个路由相关组件标签
+		<router-link>: 路由链接, 当点击路由链接时, 就能自动显示对应的路由组件界面
+		<router-view>: 显示当前路由组件界面
+
+## 路由的基本使用
+	1). 定义路由组件
+	2). 注册路由组件(要注册路由器)
+	3). 使用<router-link>/<router-view>
 
 ## 编码任务列表
 - 1. 原始方式定义组件
@@ -494,3 +571,4 @@
 - 34. element-ui按需引入使用
 - 35. 自定义事件总线
 - 36. 自定义消息订阅与发布(扩展)
+- 37. 路由的基本使用

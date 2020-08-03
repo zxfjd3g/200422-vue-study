@@ -1,31 +1,18 @@
 <template>
   <div>
-    <el-button type="primary" @click="handleClick1">主要按钮</el-button>
-    <el-button type="danger" @click="handleClick2">危险按钮</el-button>
+    <!-- 显示路由链接 -->
+    <router-link to="/about">About</router-link>
+    <router-link to="/home">Home</router-link>
+
+    <hr>
+    <!-- 显示当前路由组件 -->
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
   export default {
     name: 'App',
-
-    methods: {
-      handleClick1 () {
-        // this.$message({
-        //   message: '恭喜你，这是一条成功消息',
-        //   type: 'success'
-        // });
-        this.$message.success('恭喜你，这是一条成功消息')
-      },
-
-      handleClick2 () {
-        // this.$message({
-        //   message: '请求出错啦',
-        //   type: 'error'
-        // });
-        this.$message.error('请求出错啦')
-      }
-    },
   }
 </script>
 
