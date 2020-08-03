@@ -5,6 +5,12 @@
 <script>
 export default {
   // name: 'About',
+  mounted() {
+    console.log('About mounted()')
+  },
+  beforeDestroy() {
+    console.log('About 将要死亡')
+  },
 }
 </script>
 
