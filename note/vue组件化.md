@@ -550,7 +550,48 @@
 	]
 	显示子路由界面的<router-view>必须写在父路由组件中
 	需求: 自动显示子路由 news
-		
+		{ // 自动跳转的路由
+			path: '',
+			redirect: '/home/news'
+		}
+
+## 向路由组件传递数据
+	1) params参数
+		注册路由的路径:  'detail/:id/:name'
+		路由链接的路径: 'detail/3/tom'
+		读取数据: 
+			this.$route.params.id    
+			this.$route.params.name
+	2). query参数
+		路由链接的路径: 'detail/3?id2=5&name=tom'
+		读取数据: 
+			this.$route.query.id2
+			this.$route.query.name
+	3). 监视参数的变化
+		watch: {
+			// 路由参数发生了变化
+			$route (to, from) {}
+		}
+
+## 2种路由跳转(导航)的方式
+	声明式: 使用路由链接进行路由跳转 <router-link to="/xxx">
+	编程式: router.push/replace(location)
+
+## 组件对象能使用2个路由相关对象
+	$route: 代表当前路由信息对象, 包含以下属性
+		path: 请求的路径
+		query:包含所有query参数的对象
+		params:包含所有params参数的对象
+	$router: 路由器对象, 它包含控制路由跳转的一些方法: 
+		push(): push方式跳转路由
+		replace(): replace方式跳转路由
+		back(): 回到上一个路由
+		forward(): 前进到下一个路由
+
+## 区别push路由跳转与replace路由跳转
+	是否可以返回到原来的路由组件
+	push可以, 但replace不能
+	push居多, 如果不想有返回的效果, 用replace
 
 ## 编码任务列表
 - 1. 原始方式定义组件
@@ -596,3 +637,4 @@
 - 38. 嵌套子路由
 - 39. 向路由组件传递params参数
 - 40. 读取params参数_监视参数变化
+- 41. 2种路由跳转方式(声明式与编程式)

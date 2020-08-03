@@ -1,5 +1,6 @@
 <template>
   <ul>
+    <li>query参数: id2={{$route.query.id2}}, title={{$route.query.title}}</li>
     <li>id: {{$route.params.id}}</li>
     <li>title: {{detail.title}}</li>
     <li>content: {{detail.content}}</li>
