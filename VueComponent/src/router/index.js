@@ -7,6 +7,7 @@ import About from '@/pages/About'
 import Home from '@/pages/Home'
 import News from '@/pages/News'
 import Message from '@/pages/Message'
+import MessageDetail from '@/pages/MessageDetail'
 
 // 声明使用vue插件
 Vue.use(VueRouter)
@@ -32,6 +33,13 @@ export default new VueRouter({
           // path: '/home/message', // 完整写法
           path: 'message', // 简写  注意左边没有/
           component: Message,
+          children: [
+            {
+              // path: '/home/message/detail/:id', // 必须用:来指定params参数占位
+              path: 'detail/:id', // 必须用:来指定params参数占位
+              component: MessageDetail
+            }
+          ]
         },
         { // 自动重定向的路由  当请求/home时自动跳转到/home/news
           // path: '/home',
