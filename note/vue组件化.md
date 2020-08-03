@@ -531,6 +531,27 @@
 	2). 注册路由组件(要注册路由器)
 	3). 使用<router-link>/<router-view>
 
+	当访问项目根路径时, 自动转向到about路由
+		{ // 自动跳转的路由
+			path: '/',
+			redirect: '/about'
+		}
+	当前路由链接有特定样式: 文本是红色
+		给当前链接类名添加样式
+		.router-link-active { /* 当前路由链接的类名 */
+	      color: red !important;
+	    }
+## 嵌套/子路由
+	children: [
+		{
+		  path: '/home/news',
+		  component: News,
+		}
+	]
+	显示子路由界面的<router-view>必须写在父路由组件中
+	需求: 自动显示子路由 news
+		
+
 ## 编码任务列表
 - 1. 原始方式定义组件
 - 2. 组件的理解与data函数的问题
