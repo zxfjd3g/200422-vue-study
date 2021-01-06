@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7.10.4",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "element-ui": "^2.13.2",
     "pubsub-js": "^1.8.0",
     "vue": "^2.6.11",
